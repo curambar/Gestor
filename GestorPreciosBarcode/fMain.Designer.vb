@@ -315,6 +315,7 @@ Partial Class fMain
         Me.txtFecha.Tag = "5"
         Me.txtFecha.Text = "Fecha"
         Me.txtFecha.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.txtFecha.Visible = False
         '
         'txtSello
         '
@@ -328,6 +329,7 @@ Partial Class fMain
         Me.txtSello.Tag = "7"
         Me.txtSello.Text = "Sello"
         Me.txtSello.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.txtSello.Visible = False
         '
         'txtEditorial
         '
@@ -341,6 +343,7 @@ Partial Class fMain
         Me.txtEditorial.Tag = "3"
         Me.txtEditorial.Text = "Editorial"
         Me.txtEditorial.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.txtEditorial.Visible = False
         '
         'txtTema
         '
@@ -354,6 +357,7 @@ Partial Class fMain
         Me.txtTema.Tag = "8"
         Me.txtTema.Text = "Tema"
         Me.txtTema.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.txtTema.Visible = False
         '
         'txtISBN
         '
@@ -367,6 +371,7 @@ Partial Class fMain
         Me.txtISBN.Tag = "2"
         Me.txtISBN.Text = "ISBN"
         Me.txtISBN.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.txtISBN.Visible = False
         '
         'txtPVP
         '
@@ -380,6 +385,7 @@ Partial Class fMain
         Me.txtPVP.Tag = "4"
         Me.txtPVP.Text = "PVP"
         Me.txtPVP.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.txtPVP.Visible = False
         '
         'txtAutor
         '
@@ -393,6 +399,7 @@ Partial Class fMain
         Me.txtAutor.Tag = "1"
         Me.txtAutor.Text = "Autor"
         Me.txtAutor.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.txtAutor.Visible = False
         '
         'txtTitulo
         '
@@ -406,6 +413,7 @@ Partial Class fMain
         Me.txtTitulo.Tag = "0"
         Me.txtTitulo.Text = "Título"
         Me.txtTitulo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.txtTitulo.Visible = False
         '
         'PictureBox1
         '

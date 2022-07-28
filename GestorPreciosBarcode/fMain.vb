@@ -2,11 +2,15 @@
 Imports Microsoft.Office.Interop
 Public Class fMain
 
+    Dim grupoTextbox As New List(Of TextBox)
+
     Private Sub fGestor_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Subrutinas.CargaInicial()
         Me.CenterToScreen()
         Me.Icon = My.Resources.Uppsala
         lblID.Text = ""
+        GeneraTextbox()
+
     End Sub
 
     Private Sub sProyectar()
@@ -277,62 +281,6 @@ Public Class fMain
         End Select
     End Sub
 
-    'Textboxes de panel presentación
-    Private Sub txtTitulo_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtTitulo.KeyPress
-        If Asc(e.KeyChar) = 13 Then
-            txtAutor.Focus()
-            txtAutor.SelectAll()
-            e.Handled = True
-        End If
-    End Sub
-
-    Private Sub txtAutor_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtAutor.KeyPress
-        If Asc(e.KeyChar) = 13 Then
-            txtPVP.Focus()
-            txtPVP.SelectAll()
-            e.Handled = True
-        End If
-    End Sub
-
-    Private Sub txtPVP_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtPVP.KeyPress
-        If Asc(e.KeyChar) = 13 Then
-            txtISBN.Focus()
-            txtISBN.SelectAll()
-            e.Handled = True
-        End If
-    End Sub
-
-    Private Sub txtISBN_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtISBN.KeyPress
-        If Asc(e.KeyChar) = 13 Then
-            txtEditorial.Focus()
-            txtEditorial.SelectAll()
-            e.Handled = True
-        End If
-    End Sub
-
-    Private Sub txtEditorial_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtEditorial.KeyPress
-        If Asc(e.KeyChar) = 13 Then
-            txtSello.Focus()
-            txtSello.SelectAll()
-            e.Handled = True
-        End If
-    End Sub
-
-    Private Sub txtSello_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtSello.KeyPress
-        If Asc(e.KeyChar) = 13 Then
-            txtTema.Focus()
-            txtTema.SelectAll()
-            e.Handled = True
-        End If
-    End Sub
-
-    Private Sub txtTema_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtTema.KeyPress
-        If Asc(e.KeyChar) = 13 Then
-            btnSave.PerformClick()
-            e.Handled = True
-        End If
-    End Sub
-
     'Textbox de búsqueda estándar
     Private Sub txtInput_Keypress(sender As Object, e As KeyPressEventArgs) Handles txtInput.KeyPress
         If Asc(e.KeyChar) = 13 Then
@@ -370,6 +318,76 @@ Public Class fMain
         xlBook = GetObject(nombrePlanilla)
         xlSheet = xlBook.ActiveSheet
         xlSheet.Cells(6, 2).Formula = "Sarasa"
+    End Sub
+
+    Private Sub GeneraTextbox()
+        For i = 0 To 7
+            Dim t As New TextBox
+            pnlPresentacion.Controls.Add(t)
+            t.Width = 365
+            t.Height = 25
+            t.Tag = i
+            t.TabIndex = i + 8
+            t.TabStop = True
+            t.BackColor = Color.LightGray
+            t.BorderStyle = BorderStyle.FixedSingle
+            t.Font = btnSave.Font
+            t.TextAlign = HorizontalAlignment.Center
+            Select Case i
+                Case 0
+                    t.Text = "Título"
+                    t.Location = New Point(3, 3)
+                Case 1
+                    t.Text = "Autor"
+                    t.Location = New Point(3, 27)
+                Case 2
+                    t.Text = "PVP"
+                    t.Location = New Point(3, 51)
+                    t.Width = 69
+                Case 3
+                    t.Text = "ISBN"
+                    t.Location = New Point(253, 51)
+                    t.Width = 115
+                Case 4
+                    t.Text = "Editorial"
+                    t.Location = New Point(3, 75)
+                    t.Width = 168
+                Case 5
+                    t.Text = "Sello"
+                    t.Location = New Point(170, 75)
+                    t.Width = 198
+                Case 6
+                    t.Text = "Tema"
+                    t.Location = New Point(3, 99)
+                Case 7
+                    t.Text = "Fecha"
+                    t.Location = New Point(130, 51)
+                    t.Width = 69
+                    t.TabStop = False
+            End Select
+            grupoTextbox.Add(t)
+            AddHandler t.KeyPress, AddressOf grupoTextbox_KeyPress
+        Next
+    End Sub
+
+    Private Sub grupoTextbox_KeyPress(sender As Object, e As KeyPressEventArgs)
+        Dim tagSender = sender.Tag
+
+        If tagSender = 7 Then   'Sale si es el textbox de fecha
+            e.Handled = True
+            Exit Sub
+        End If
+
+        If Asc(e.KeyChar) = 13 Then
+            If tagSender = 6 Then
+                btnSave.PerformClick()
+            Else
+                grupoTextbox(tagSender + 1).Focus()
+                grupoTextbox(tagSender + 1).SelectAll()
+            End If
+            
+            e.Handled = True
+        End If
     End Sub
 
 End Class

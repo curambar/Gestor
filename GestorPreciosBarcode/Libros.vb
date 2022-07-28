@@ -10,8 +10,7 @@
     Public sello As String
     Public tema As String
     Public array() As String
-    'Public linea As String
-    
+
     Sub New(ByVal libro() As String)
         id = CInt(libro(9))
         titulo = libro(0)
@@ -27,7 +26,6 @@
         libro(2) = "`" & libro(2)
         libro(9) = id.ToString
         array = libro
-        'linea = String.Join(";", array)
     End Sub
 
     Function fecha() As String
@@ -37,21 +35,6 @@
     Function linea() As String
         Return String.Join(";", array)
     End Function
-
-    Sub makeArray()
-        Dim aux(0 To 9) As String
-        aux(0) = titulo
-        aux(1) = autor
-        aux(2) = isbn
-        aux(3) = editorial
-        aux(4) = pvp.ToString
-        aux(5) = mes.ToString
-        aux(6) = ano.ToString
-        aux(7) = sello
-        aux(8) = tema
-        aux(9) = id.ToString
-        array = aux
-    End Sub
 
     Sub updateFromArray(aux() As String)
         array = aux
@@ -64,7 +47,6 @@
         ano = CInt(aux(6))
         sello = aux(7)
         tema = aux(8)
-        'id = CInt(aux(9))  NO HACE FALTA
     End Sub
 
 End Class
