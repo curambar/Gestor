@@ -6,9 +6,9 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{F8425305-C50D-4BFC-BD8C-A1A44A054386}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <StartupObject>Gestor3.My.MyApplication</StartupObject>
-    <RootNamespace>Gestor3</RootNamespace>
-    <AssemblyName>GestorPreciosBarcode</AssemblyName>
+    <StartupObject>Buscador.My.MyApplication</StartupObject>
+    <RootNamespace>Buscador</RootNamespace>
+    <AssemblyName>Buscador</AssemblyName>
     <FileAlignment>512</FileAlignment>
     <MyType>WindowsForms</MyType>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
@@ -23,8 +23,10 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
+    <ProductName>Buscador</ProductName>
+    <PublisherName>Haaton Soft</PublisherName>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>3.0.0.%2a</ApplicationVersion>
+    <ApplicationVersion>1.0.0.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -35,7 +37,7 @@
     <DefineDebug>true</DefineDebug>
     <DefineTrace>true</DefineTrace>
     <OutputPath>bin\Debug\</OutputPath>
-    <DocumentationFile>GestorPreciosBarcode.xml</DocumentationFile>
+    <DocumentationFile>Buscador.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -45,7 +47,7 @@
     <DefineTrace>true</DefineTrace>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DocumentationFile>GestorPreciosBarcode.xml</DocumentationFile>
+    <DocumentationFile>Buscador.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
   </PropertyGroup>
   <PropertyGroup>
@@ -61,7 +63,7 @@
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Upalala.ico</ApplicationIcon>
+    <ApplicationIcon>img\64x64.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
@@ -91,13 +93,22 @@
     <Import Include="System.Threading.Tasks" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="fGestor.vb">
+    <Compile Include="ApplicationEvents.vb" />
+    <Compile Include="fMain.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="fGestor.Designer.vb">
-      <DependentUpon>fGestor.vb</DependentUpon>
+    <Compile Include="fMain.Designer.vb">
+      <DependentUpon>fMain.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="formHistorial.Designer.vb">
+      <DependentUpon>formHistorial.vb</DependentUpon>
+    </Compile>
+    <Compile Include="formHistorial.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FuncionesTexto.vb" />
+    <Compile Include="Globales.vb" />
     <Compile Include="Libros.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
@@ -114,13 +125,17 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Subrutinas.vb" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="fGestor.resx">
-      <DependentUpon>fGestor.vb</DependentUpon>
+    <EmbeddedResource Include="fMain.resx">
+      <DependentUpon>fMain.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formHistorial.resx">
+      <DependentUpon>formHistorial.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
-      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <Generator>PublicVbMyResourcesResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
@@ -140,7 +155,20 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Upalala.ico" />
+    <None Include="img\edit.png" />
+    <None Include="img\add.png" />
+    <None Include="img\save.png" />
+    <None Include="img\save2.png" />
+    <None Include="img\edit2.png" />
+    <None Include="img\64x64.png" />
+    <None Include="img\64x64.ico" />
+    <None Include="img\Cancel.png" />
+    <None Include="img\cancel2.png" />
+    <None Include="Resources\1.gif" />
+    <None Include="Resources\1%281%29.gif" />
+    <None Include="Resources\gif.gif" />
+    <None Include="Resources\UppsalaGif.gif" />
+    <Content Include="Tasas.txt" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
@@ -158,6 +186,36 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>5</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <Guid>{00020813-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>7</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="VBIDE">
+      <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>5</VersionMajor>
+      <VersionMinor>3</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,0 +1,17 @@
+﻿Public Class formHistorial
+
+    Private Sub formHistorial_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Dim posx As Integer = Buscador.fMain.Location.X + Buscador.fMain.Size.Width - 15
+        Dim posy As Integer = Buscador.fMain.Location.Y
+        Me.Location = New Point(posx, posy)
+        For Each x In Globales.historial
+            listHistorial.Items.Add(x)
+        Next
+    End Sub
+
+    Private Sub listHistorial_SelectedIndexChanged(sender As Object, e As EventArgs) Handles listHistorial.SelectedIndexChanged
+        Dim texto As String = listHistorial.Items(listHistorial.SelectedIndex)
+        Buscador.fMain.txtInput.Text = texto.Substring(11)
+        Buscador.fMain.btnBuscar.PerformClick()
+    End Sub
+End Class

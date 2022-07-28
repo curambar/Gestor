@@ -117,29 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAQAQAABMLAAATCwAAAAAAAAAA
-        AAAAayHBAGsh3gBrId4AayHeAGsh3gBrId4AayHeAGsh3gBrId4AayHeAGsh3gBrId4AayHeAGsh3gBr
-        Id4AayHBAGsh3gBsIP8AbCD/AGwg/wBsIP8AbCD/AGwg/wBsIP8AbCD/AGwg/wBsIP8AbCD/AGwg/wBs
-        IP8AbCD/AGsh3gBrId4AbCD/AGwg/wBsIP8AbCD/AGwg/wBsIP8AbCD/AGwg/wBsIP8AbCD/AGwg/wBs
-        IP8AbCD/AGwg/wBrId4AayHeAGwg/wBsIP8AbCD/AGYd/wBLGf8AOhL/AD8S/wBQFv8AZh3/AGwg/wBs
-        IP8AbCD/AGwg/wBsIP8AayHeAGsh3gBsIP8AbCD/AGge/wAtDv8ACAT/ADQP/wBRGf8AShb/AD8S/wBk
-        IP8AbCD/AGwg/wBsIP8AbCD/AGsh3gBrId4AbCD/AGwg/wBeHf8ADQT/AA8G/wBfHP8AbCD/AGwg/wBT
-        Gf8ASBb/AGwg/wBsIP8AbCD/AGwg/wBrId4AayHeAGwg/wBsIP8AYh//ABME/wAJA/8AWBn/AGwg/wBs
-        IP8AaB7/AD0S/wBmHf8AbCD/AGwg/wBsIP8AayHeAGsh3gBsIP8AbCD/AGog/wApC/8BAQH/AEEV/wBs
-        IP8AbCD/AGwg/wBIFv8AVhn/AGwg/wBsIP8AbCD/AGsh3gBrId4AbCD/AGwg/wBsIP8ARhX/AAMA/wAk
-        C/8AaSD/AGwg/wBsIP8AWR3/AEUW/wBsIP8AbCD/AGwg/wBrId4AayHeAGwg/wBsIP8AbCD/AFwc/wAN
-        BP8ADgP/AF4d/wBsIP8AbCD/AGcg/wA7Ff8AZyD/AGwg/wBsIP8AayHeAGsh3gBsIP8AbCD/AGwg/wBp
-        IP8AIgr/AAMA/wBIFv8AbCD/AGwg/wBsIP8AQhb/AFkd/wBsIP8AbCD/AGsh3gBrId4AbCD/AGwg/wBs
-        IP8AZh3/ACwL/wECAv8AIgr/AF0a/wBrHf8AZyD/ADwP/wAyDv8AYh//AGwg/wBrId4AayHeAGwg/wBs
-        IP8AbCD/AGMd/wBSGv8AThn/AFAW/wBbGf8AaiD/AGQg/wBTGf8AURn/AF8c/wBsIP8AayHeAGsh3gBs
-        IP8AbCD/AGwg/wBsIP8AbCD/AGwg/wBsIP8AbCD/AGwg/wBsIP8AbCD/AGwg/wBsIP8AbCD/AGsh3gBr
-        Id4AbCD/AGwg/wBsIP8AbCD/AGwg/wBsIP8AbCD/AGwg/wBsIP8AbCD/AGwg/wBsIP8AbCD/AGwg/wBr
-        Id4AayHBAGsh3gBrId4AayHeAGsh3gBrId4AayHeAGsh3gBrId4AayHeAGsh3gBrId4AayHeAGsh3gBr
-        Id4AayHBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        AAAAAAAAAAAAAA==
-</value>
-  </data>
 </root>
