@@ -124,19 +124,19 @@ Public Class fMain
 
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         TxtClean()
-        txtTitulo.Focus()
-        txtTitulo.SelectAll()
+        grupoTextbox(0).Focus()
+        grupoTextbox(0).SelectAll()
     End Sub
 
     Public Sub TxtClean()
-        txtTitulo.Text = "Título"
-        txtAutor.Text = "Autor"
-        txtPVP.Text = "PVP"
-        txtFecha.Text = Now.ToString("MM/yy")
-        txtISBN.Text = "ISBN"
-        txtEditorial.Text = "Editorial"
-        txtTema.Text = "Tema"
-        txtSello.Text = "Sello"
+        grupoTextbox(0).Text = "Título"
+        grupoTextbox(1).Text = "Autor"
+        grupoTextbox(2).Text = "PVP"
+        grupoTextbox(7).Text = Now.ToString("MM/yy")
+        grupoTextbox(3).Text = "ISBN"
+        grupoTextbox(4).Text = "Editorial"
+        grupoTextbox(6).Text = "Tema"
+        grupoTextbox(5).Text = "Sello"
         lblID.Text = ""
 
     End Sub
@@ -158,10 +158,10 @@ Public Class fMain
     End Sub
 
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
-        If Not IsNumeric(txtPVP.Text) Then
+        If Not IsNumeric(grupoTextbox(2).Text) Then
             MsgBox("Ingrese un PVP válido", MsgBoxStyle.Exclamation, "Error")
-            txtPVP.Focus()
-            txtPVP.SelectAll()
+            grupoTextbox(2).Focus()
+            grupoTextbox(2).SelectAll()
             Exit Sub
         End If
 
@@ -177,22 +177,22 @@ Public Class fMain
         End If
 
         Dim datos(0 To 9) As String
-        datos(0) = txtTitulo.Text
-        datos(1) = txtAutor.Text
-        datos(2) = ExtraeNumeros(txtISBN.Text)
-        datos(3) = txtEditorial.Text
-        datos(4) = txtPVP.Text
+        datos(0) = grupoTextbox(0).Text
+        datos(1) = grupoTextbox(1).Text
+        datos(2) = ExtraeNumeros(grupoTextbox(3).Text)
+        datos(3) = grupoTextbox(4).Text
+        datos(4) = grupoTextbox(2).Text
         datos(5) = Month(Now).ToString
         datos(6) = (Year(Now) - 2000).ToString
-        If txtSello.Text = "Sello" Then
+        If grupoTextbox(5).Text = "Sello" Then
             datos(7) = "-"
         Else
-            datos(7) = txtSello.Text
+            datos(7) = grupoTextbox(5).Text
         End If
-        If txtTema.Text = "Tema" Then
+        If grupoTextbox(6).Text = "Tema" Then
             datos(8) = "-"
         Else
-            datos(8) = txtTema.Text
+            datos(8) = grupoTextbox(6).Text
         End If
         datos(9) = id.ToString
 
@@ -225,14 +225,14 @@ Public Class fMain
     Public Sub PresentaDatos(item As Libros)
         Dim fecha As String = item.mes.ToString.Trim & "/" & item.ano.ToString.Trim
 
-        txtTitulo.Text = item.titulo
-        txtAutor.Text = item.autor
-        txtISBN.Text = FuncionesTexto.ExtraeNumeros(item.isbn)
-        txtEditorial.Text = item.editorial
-        txtPVP.Text = item.pvp.ToString
-        txtFecha.Text = fecha
-        txtTema.Text = item.tema
-        txtSello.Text = item.sello
+        grupoTextbox(0).Text = item.titulo
+        grupoTextbox(1).Text = item.autor
+        grupoTextbox(3).Text = FuncionesTexto.ExtraeNumeros(item.isbn)
+        grupoTextbox(4).Text = item.editorial
+        grupoTextbox(2).Text = item.pvp.ToString
+        grupoTextbox(7).Text = fecha
+        grupoTextbox(6).Text = item.tema
+        grupoTextbox(5).Text = item.sello
         lblID.Text = item.id.ToString
 
         PortaPapeles(item.titulo, item.isbn, item.editorial, item.sello, item.pvp.ToString)

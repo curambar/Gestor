@@ -48,14 +48,6 @@ Partial Class fMain
         Me.btnEliminar = New System.Windows.Forms.Button()
         Me.lblID = New System.Windows.Forms.Label()
         Me.btnCancel = New System.Windows.Forms.Button()
-        Me.txtFecha = New System.Windows.Forms.TextBox()
-        Me.txtSello = New System.Windows.Forms.TextBox()
-        Me.txtEditorial = New System.Windows.Forms.TextBox()
-        Me.txtTema = New System.Windows.Forms.TextBox()
-        Me.txtISBN = New System.Windows.Forms.TextBox()
-        Me.txtPVP = New System.Windows.Forms.TextBox()
-        Me.txtAutor = New System.Windows.Forms.TextBox()
-        Me.txtTitulo = New System.Windows.Forms.TextBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         Me.pnlInput.SuspendLayout()
         Me.pnlProyectar.SuspendLayout()
@@ -250,14 +242,6 @@ Partial Class fMain
         Me.pnlPresentacion.Controls.Add(Me.lblID)
         Me.pnlPresentacion.Controls.Add(Me.btnCancel)
         Me.pnlPresentacion.Controls.Add(Me.btnSave)
-        Me.pnlPresentacion.Controls.Add(Me.txtFecha)
-        Me.pnlPresentacion.Controls.Add(Me.txtSello)
-        Me.pnlPresentacion.Controls.Add(Me.txtEditorial)
-        Me.pnlPresentacion.Controls.Add(Me.txtTema)
-        Me.pnlPresentacion.Controls.Add(Me.txtISBN)
-        Me.pnlPresentacion.Controls.Add(Me.txtPVP)
-        Me.pnlPresentacion.Controls.Add(Me.txtAutor)
-        Me.pnlPresentacion.Controls.Add(Me.txtTitulo)
         Me.pnlPresentacion.Location = New System.Drawing.Point(402, 12)
         Me.pnlPresentacion.Name = "pnlPresentacion"
         Me.pnlPresentacion.Size = New System.Drawing.Size(376, 155)
@@ -302,119 +286,6 @@ Partial Class fMain
         Me.btnCancel.Text = "Borrar"
         Me.btnCancel.UseVisualStyleBackColor = False
         '
-        'txtFecha
-        '
-        Me.txtFecha.BackColor = System.Drawing.Color.LightGray
-        Me.txtFecha.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtFecha.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!)
-        Me.txtFecha.Location = New System.Drawing.Point(130, 51)
-        Me.txtFecha.Name = "txtFecha"
-        Me.txtFecha.Size = New System.Drawing.Size(69, 25)
-        Me.txtFecha.TabIndex = 12
-        Me.txtFecha.TabStop = False
-        Me.txtFecha.Tag = "5"
-        Me.txtFecha.Text = "Fecha"
-        Me.txtFecha.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.txtFecha.Visible = False
-        '
-        'txtSello
-        '
-        Me.txtSello.BackColor = System.Drawing.Color.LightGray
-        Me.txtSello.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtSello.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!)
-        Me.txtSello.Location = New System.Drawing.Point(170, 75)
-        Me.txtSello.Name = "txtSello"
-        Me.txtSello.Size = New System.Drawing.Size(198, 25)
-        Me.txtSello.TabIndex = 13
-        Me.txtSello.Tag = "7"
-        Me.txtSello.Text = "Sello"
-        Me.txtSello.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.txtSello.Visible = False
-        '
-        'txtEditorial
-        '
-        Me.txtEditorial.BackColor = System.Drawing.Color.LightGray
-        Me.txtEditorial.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtEditorial.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!)
-        Me.txtEditorial.Location = New System.Drawing.Point(3, 75)
-        Me.txtEditorial.Name = "txtEditorial"
-        Me.txtEditorial.Size = New System.Drawing.Size(168, 25)
-        Me.txtEditorial.TabIndex = 12
-        Me.txtEditorial.Tag = "3"
-        Me.txtEditorial.Text = "Editorial"
-        Me.txtEditorial.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.txtEditorial.Visible = False
-        '
-        'txtTema
-        '
-        Me.txtTema.BackColor = System.Drawing.Color.LightGray
-        Me.txtTema.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtTema.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!)
-        Me.txtTema.Location = New System.Drawing.Point(3, 99)
-        Me.txtTema.Name = "txtTema"
-        Me.txtTema.Size = New System.Drawing.Size(365, 25)
-        Me.txtTema.TabIndex = 14
-        Me.txtTema.Tag = "8"
-        Me.txtTema.Text = "Tema"
-        Me.txtTema.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.txtTema.Visible = False
-        '
-        'txtISBN
-        '
-        Me.txtISBN.BackColor = System.Drawing.Color.LightGray
-        Me.txtISBN.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtISBN.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!)
-        Me.txtISBN.Location = New System.Drawing.Point(253, 51)
-        Me.txtISBN.Name = "txtISBN"
-        Me.txtISBN.Size = New System.Drawing.Size(115, 25)
-        Me.txtISBN.TabIndex = 11
-        Me.txtISBN.Tag = "2"
-        Me.txtISBN.Text = "ISBN"
-        Me.txtISBN.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.txtISBN.Visible = False
-        '
-        'txtPVP
-        '
-        Me.txtPVP.BackColor = System.Drawing.Color.LightGray
-        Me.txtPVP.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtPVP.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!)
-        Me.txtPVP.Location = New System.Drawing.Point(3, 51)
-        Me.txtPVP.Name = "txtPVP"
-        Me.txtPVP.Size = New System.Drawing.Size(69, 25)
-        Me.txtPVP.TabIndex = 10
-        Me.txtPVP.Tag = "4"
-        Me.txtPVP.Text = "PVP"
-        Me.txtPVP.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.txtPVP.Visible = False
-        '
-        'txtAutor
-        '
-        Me.txtAutor.BackColor = System.Drawing.Color.LightGray
-        Me.txtAutor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtAutor.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!)
-        Me.txtAutor.Location = New System.Drawing.Point(3, 27)
-        Me.txtAutor.Name = "txtAutor"
-        Me.txtAutor.Size = New System.Drawing.Size(365, 25)
-        Me.txtAutor.TabIndex = 9
-        Me.txtAutor.Tag = "1"
-        Me.txtAutor.Text = "Autor"
-        Me.txtAutor.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.txtAutor.Visible = False
-        '
-        'txtTitulo
-        '
-        Me.txtTitulo.BackColor = System.Drawing.Color.LightGray
-        Me.txtTitulo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.txtTitulo.Font = New System.Drawing.Font("Segoe UI Semibold", 10.0!)
-        Me.txtTitulo.Location = New System.Drawing.Point(3, 3)
-        Me.txtTitulo.Name = "txtTitulo"
-        Me.txtTitulo.Size = New System.Drawing.Size(365, 25)
-        Me.txtTitulo.TabIndex = 8
-        Me.txtTitulo.Tag = "0"
-        Me.txtTitulo.Text = "Título"
-        Me.txtTitulo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
-        Me.txtTitulo.Visible = False
-        '
         'PictureBox1
         '
         Me.PictureBox1.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
@@ -449,7 +320,6 @@ Partial Class fMain
         Me.pnlProyectar.ResumeLayout(False)
         Me.pnlProyectar.PerformLayout()
         Me.pnlPresentacion.ResumeLayout(False)
-        Me.pnlPresentacion.PerformLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
 
@@ -469,15 +339,7 @@ Partial Class fMain
     Friend WithEvents txtMes As System.Windows.Forms.TextBox
     Friend WithEvents btnSave As System.Windows.Forms.Button
     Friend WithEvents pnlPresentacion As System.Windows.Forms.Panel
-    Friend WithEvents txtSello As System.Windows.Forms.TextBox
-    Friend WithEvents txtEditorial As System.Windows.Forms.TextBox
-    Friend WithEvents txtTema As System.Windows.Forms.TextBox
-    Friend WithEvents txtISBN As System.Windows.Forms.TextBox
-    Friend WithEvents txtPVP As System.Windows.Forms.TextBox
-    Friend WithEvents txtAutor As System.Windows.Forms.TextBox
-    Friend WithEvents txtTitulo As System.Windows.Forms.TextBox
     Friend WithEvents btnCancel As System.Windows.Forms.Button
-    Friend WithEvents txtFecha As System.Windows.Forms.TextBox
     Friend WithEvents colTitulo As System.Windows.Forms.ColumnHeader
     Friend WithEvents colAutor As System.Windows.Forms.ColumnHeader
     Friend WithEvents colISBN As System.Windows.Forms.ColumnHeader
