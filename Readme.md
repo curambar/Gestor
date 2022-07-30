@@ -1,2 +1,2 @@
 Gestor de precios
-Updated from work
+Updated from home
