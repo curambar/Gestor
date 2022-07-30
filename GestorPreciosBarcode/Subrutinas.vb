@@ -310,10 +310,6 @@ Public Class Subrutinas
     Public Shared Sub MuestraHistorial()
         Dim fHistorial As New formHistorial
         fHistorial.Text = "Historial"
-
         fHistorial.Show()
-        'Dim texto As String
-        'texto = String.Join(vbCrLf, historial)
-        'MsgBox(texto, MsgBoxStyle.Information, "Historial")
     End Sub
 End Class
