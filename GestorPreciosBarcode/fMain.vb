@@ -424,10 +424,31 @@ Public Class fMain
         If openFileDialog1.ShowDialog() = System.Windows.Forms.DialogResult.OK Then
             Dim datos As New List(Of List(Of String))
             datos = Subrutinas.ExtraeDatos(openFileDialog1.FileName)
+            Dim numFilas As Integer = datos.Count
+            Dim numColumnas As Integer = datos(0).Count
+
             Dim formDatos As New formDatosActualizacion
             Dim tablaDatos As New ListView
+            tablaDatos.View = View.Details
+            tablaDatos.GridLines = True
+            tablaDatos.HeaderStyle = ColumnHeaderStyle.Clickable
+            tablaDatos.Scrollable = True
+            tablaDatos.AllowColumnReorder = True
+
+
+            For Each dato As String In datos(0)
+                tablaDatos.Columns.Add(dato, 100)
+            Next
+            tablaDatos.Width = 110 * datos(0).Count
+            formDatos.Width = tablaDatos.Width + 30
+            For i As Integer = 1 To numFilas - 1
+                Dim linea() As String = datos(i).ToArray
+                Dim fila As ListViewItem
+                fila = New ListViewItem(linea)
+                tablaDatos.Items.Add(fila)
+            Next
             formDatos.Controls.Add(tablaDatos)
-            tablaDatos.Bounds = New Rectangle(New Point(10, 10), New Size(300, 200))
+            'tablaDatos.Bounds = New Rectangle(New Point(10, 10), New Size(300, 200))
             formDatos.Show()
         End If
     End Sub
