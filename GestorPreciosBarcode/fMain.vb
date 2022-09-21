@@ -88,14 +88,14 @@ Public Class fMain
                 valor = InputBox("Nuevo valor", "Nuevo " + textoInput)
                 If valor = "" Then Exit Sub
                 Subrutinas.BulkEdit(itemsSeleccionados, valor, seleccion)
-                Subrutinas.GuardarCambiosADisco()
+                Subrutinas.GuardaCSV()
                 btnBuscar.PerformClick()
             End If
             If e.Control Then
                 valor = InputBox("Nuevo PVP")
                 If Not IsNumeric(valor) OrElse CInt(valor) <= 0 Then Exit Sub
                 Subrutinas.BulkEdit(itemsSeleccionados, valor, 4)
-                Subrutinas.GuardarCambiosADisco()
+                Subrutinas.GuardaCSV()
                 btnBuscar.PerformClick()
             End If
         End If
@@ -112,7 +112,7 @@ Public Class fMain
             End If
             itemsSeleccionados.Sort(Function(x, y) y.CompareTo(x))
             Subrutinas.BulkDelete(itemsSeleccionados)
-            Subrutinas.GuardarCambiosADisco()
+            Subrutinas.GuardaCSV()
             lvResultadosBusqueda.Items.Clear()
             txtInput.Focus()
             btnBuscar.PerformClick()
@@ -169,7 +169,7 @@ Public Class fMain
         Dim id As Integer
         id = CInt(lblID.Text)
         Subrutinas.EliminaLibro(id)
-        Subrutinas.GuardarCambiosADisco()
+        Subrutinas.GuardaCSV()
         lvResultadosBusqueda.Items.Clear()
         btnCancel.PerformClick()
         txtInput.Focus()
@@ -236,7 +236,7 @@ Public Class fMain
         End If
 
         Subrutinas.EditaAgrega(item, nuevo)
-        Subrutinas.GuardarCambiosADisco()
+        Subrutinas.GuardaCSV()
         txtInput.Text = item.isbn
         btnBuscar.PerformClick()
     End Sub
@@ -409,5 +409,27 @@ Public Class fMain
         End If
     End Sub
 
+    Private Sub ActualizarToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ActualizarToolStripMenuItem1.Click
+        'Abre un CSV conteniendo actualizacion de precios
+        'Arma una lista de "libro" con los datos a actualizar
+        'Finalmente ejecuta la rutina de actualizacion
+
+        Dim myStream As System.IO.Stream = Nothing
+        Dim openFileDialog1 As New OpenFileDialog()
+        openFileDialog1.InitialDirectory = System.AppDomain.CurrentDomain.BaseDirectory()
+        openFileDialog1.Filter = "CSV (*.csv)|*.csv|Excel (*.xlsx)|*.xlsx|Excel 97 (*.xls)|*.xls"
+        openFileDialog1.FilterIndex = 2
+        openFileDialog1.RestoreDirectory = True
+
+        If openFileDialog1.ShowDialog() = System.Windows.Forms.DialogResult.OK Then
+            Dim datos As New List(Of List(Of String))
+            datos = Subrutinas.ExtraeDatos(openFileDialog1.FileName)
+            Dim formDatos As New formDatosActualizacion
+            Dim tablaDatos As New ListView
+            formDatos.Controls.Add(tablaDatos)
+            tablaDatos.Bounds = New Rectangle(New Point(10, 10), New Size(300, 200))
+            formDatos.Show()
+        End If
+    End Sub
 End Class
 

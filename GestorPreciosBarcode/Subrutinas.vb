@@ -1,5 +1,7 @@
 ﻿'Imports System.Text
 Imports Buscador.Globales
+Imports Microsoft.Office.Interop
+
 Public Class Subrutinas
 
     Public Class Condicion
@@ -17,26 +19,57 @@ Public Class Subrutinas
         End Sub
     End Class
 
+    Public Shared Sub CargaInicial()
+        libro.Clear()
+        libro = LeeCSV("Precios.csv", True)
+        ActualizaBackup()
+    End Sub
+
     Public Shared Sub ActualizaBackup()
-        Dim archivoNombre As String = "Precios"
         Dim i As Integer
         For i = 8 To 0 Step -1
             Dim nombre1 As String = "Backup\Precios" + i.ToString + ".csv"
-            Dim nombre2 As String = "Precios" + (i + 1).ToString + ".csv"
+            Dim nombre2 As String = "Backup\Precios" + (i + 1).ToString + ".csv"
+
             If System.IO.File.Exists(nombre1) Then
-                My.Computer.FileSystem.RenameFile(nombre1, nombre2)
+                My.Computer.FileSystem.CopyFile(nombre1, nombre2, True)
             End If
         Next
         System.IO.File.Copy("Precios.csv", "Backup\Precios0.csv", True)
     End Sub
 
-    Public Shared Sub CargaInicial()
+    Public Shared Function LeeCSV(archivo As String, esPrincipal As Boolean) As List(Of Libros)
+        Dim numDatos As Integer = 9
+        Dim listaCsv As New List(Of Libros)
+        Using parser As New FileIO.TextFieldParser(archivo, System.Text.Encoding.GetEncoding(1252))
+            parser.TextFieldType = FileIO.FieldType.Delimited
+            parser.SetDelimiters(";")
 
-        Dim archivoPrecios As String = "Precios.csv"
-        libro.Clear()
-        libro = LeeCSV(archivoPrecios, True)
-        ActualizaBackup()
-    End Sub
+            If esPrincipal Then
+                tasa.Clear()
+                Dim linea As String()
+                linea = parser.ReadFields() 'Saltea la 1er linea
+                linea = parser.ReadFields() 'Lee tasas de interes
+                For Each x In linea
+                    tasa.Add(CSng(x) / 100)
+                Next
+                linea = parser.ReadFields() 'Lee Fecha y Hora
+                hora = linea(0) + "/" + linea(1) + "/" + linea(2) + " " + linea(3) + ":" + linea(4) + ":" + linea(5)
+            End If
+
+            Dim id As Integer = 0
+            While Not parser.EndOfData
+                Dim linea(numDatos) As String
+                linea = parser.ReadFields()
+                linea(2) = ExtraeNumeros(linea(2))
+                linea(4) = Redondea(CInt(linea(4)), 50)
+                linea(9) = id.ToString
+                id += 1
+                listaCsv.Add(New Libros(linea))
+            End While
+        End Using
+        Return listaCsv
+    End Function
 
     Public Shared Function Buscar(_input As String) As List(Of Integer)
         If _input = "" Then Return Nothing
@@ -257,21 +290,18 @@ Public Class Subrutinas
             x.id = i
             i += 1
         Next
-
     End Sub
 
     Public Shared Sub EliminaLibro(id As Integer)
-        Dim i As Integer = 0
         libro.RemoveAt(id)
-        i = 0
+        Dim i As Integer = 0
         For Each x In libro
             x.id = i
             i += 1
         Next
-
     End Sub
 
-    Public Shared Sub GuardarCambiosADisco()
+    Public Shared Sub GuardaCSV()
         Dim rutaRaiz As String = System.AppDomain.CurrentDomain.BaseDirectory()
         Dim archivoPrecios As String = My.Computer.FileSystem.CombinePath(rutaRaiz, "Precios.csv")
         Dim textoCompleto As New List(Of String)
@@ -311,43 +341,32 @@ Public Class Subrutinas
         fHistorial.Show()
     End Sub
 
-    Public Shared Function LeeCSV(archivo As String, esPrincipal As Boolean) As List(Of Libros)
-        Dim numDatos As Integer = 9
-        Dim listaCsv As New List(Of Libros)
-        Using parser As New FileIO.TextFieldParser(archivo, System.Text.Encoding.GetEncoding(1252))
-            parser.TextFieldType = FileIO.FieldType.Delimited
-            parser.SetDelimiters(";")
-
-            If esPrincipal Then
-                tasa.Clear()
-                Dim linea As String()
-                linea = parser.ReadFields() 'Saltea la 1er linea
-                linea = parser.ReadFields()
-                For Each x In linea
-                    tasa.Add(CSng(x) / 100)
-                Next
-                linea = parser.ReadFields()
-                hora = linea(0) + "/" + linea(1) + "/" + linea(2) + " " + linea(3) + ":" + linea(4) + ":" + linea(5)
-            End If
-
-            Dim id As Integer = 0
-            While Not parser.EndOfData
-                Dim linea(numDatos) As String
-                linea = parser.ReadFields()
-                linea(2) = ExtraeNumeros(linea(2))
-                linea(4) = Redondea(CInt(linea(4)), 50)
-                linea(9) = id.ToString
-                id += 1
-                listaCsv.Add(New Libros(linea))
-            End While
-        End Using
-        Return listaCsv
-    End Function
-
     Public Shared Function CargaActualizacion(archivo As String) As List(Of Libros)
         Dim listaActualizacion As New List(Of Libros)
         listaActualizacion = LeeCSV(archivo, False)
         Return listaActualizacion
+    End Function
+
+    Shared Function ExtraeDatos(archivo As String) As List(Of List(Of String))
+        Dim datos As New List(Of List(Of String))
+        Dim xlApp As Excel.Application
+        Dim xlBook As Excel.Workbook
+        Dim xlSheet As Excel.Worksheet
+        xlApp = CType(System.Runtime.InteropServices.Marshal.GetActiveObject("Excel.Application"), Excel.Application)
+        xlBook = GetObject(archivo)
+        xlSheet = xlBook.ActiveSheet
+        Dim numeroColumnas As Integer
+        Dim numeroFilas As Integer
+        numeroColumnas = xlSheet.Cells(1, xlSheet.Columns.Count).End(Excel.XlDirection.xlToLeft).Column
+        numeroFilas = xlSheet.Cells(xlSheet.Rows.Count, 1).End(Excel.XlDirection.xlUp).Row
+        For fila As Integer = 1 To numeroFilas
+            Dim linea As New List(Of String)
+            For columna As Integer = 1 To numeroColumnas
+                linea.Add(xlSheet.Cells(fila, columna).Formula)
+            Next
+            datos.Add(linea)
+        Next
+        Return datos
     End Function
 
 End Class
