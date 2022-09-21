@@ -17,41 +17,25 @@ Public Class Subrutinas
         End Sub
     End Class
 
+    Public Shared Sub ActualizaBackup()
+        Dim archivoNombre As String = "Precios"
+        Dim i As Integer
+        For i = 8 To 0 Step -1
+            Dim nombre1 As String = "Backup\Precios" + i.ToString + ".csv"
+            Dim nombre2 As String = "Precios" + (i + 1).ToString + ".csv"
+            If System.IO.File.Exists(nombre1) Then
+                My.Computer.FileSystem.RenameFile(nombre1, nombre2)
+            End If
+        Next
+        System.IO.File.Copy("Precios.csv", "Backup\Precios0.csv", True)
+    End Sub
+
     Public Shared Sub CargaInicial()
-        Dim rutaRaiz As String = System.AppDomain.CurrentDomain.BaseDirectory()
-        Dim nombreArchivo As String = "Precios.csv"
-        Dim nombreBackup As String = "Backup\" & FechaHora() & nombreArchivo
-        Dim archivoPrecios As String = My.Computer.FileSystem.CombinePath(rutaRaiz, nombreArchivo)
-        Dim archivoBackup As String = My.Computer.FileSystem.CombinePath(rutaRaiz, nombreBackup)
-        Dim archivoTasas As String = My.Computer.FileSystem.CombinePath(rutaRaiz, "Tasas.txt")
 
+        Dim archivoPrecios As String = "Precios.csv"
         libro.Clear()
-
-        Using tPrecios As New FileIO.TextFieldParser(archivoPrecios, System.Text.Encoding.GetEncoding(1252))
-            tPrecios.TextFieldType = FileIO.FieldType.Delimited
-            tPrecios.SetDelimiters(";")
-
-            Dim id As Integer = 0
-
-            While Not tPrecios.EndOfData
-                Dim linea As String()
-                linea = tPrecios.ReadFields()
-                linea(2) = ExtraeNumeros(linea(2))
-                linea(4) = Redondea(CInt(linea(4)), 50)
-                linea(9) = id.ToString
-                id += 1
-                libro.Add(New Libros(linea))
-            End While
-        End Using
-
-        Using sr As New System.IO.StreamReader(archivoTasas)
-            Do While sr.Peek() <> -1
-                Dim lineaTasa As Single = CSng(sr.ReadLine())
-                tasa.Add(lineaTasa / 100)
-            Loop
-        End Using
-
-        System.IO.File.Copy(archivoPrecios, archivoBackup)
+        libro = LeeCSV(archivoPrecios, True)
+        ActualizaBackup()
     End Sub
 
     Public Shared Function Buscar(_input As String) As List(Of Integer)
@@ -280,10 +264,12 @@ Public Class Subrutinas
         Dim archivoPrecios As String = My.Computer.FileSystem.CombinePath(rutaRaiz, "Precios.csv")
         Dim textoCompleto As New List(Of String)
 
+        textoCompleto.Add(LineaAños)
+        textoCompleto.Add(LineaTasas(tasa))
+        textoCompleto.Add(FechaHora)
         For Each x In libro
             textoCompleto.Add(x.linea)
         Next
-
         System.IO.File.WriteAllLines(archivoPrecios, textoCompleto, System.Text.Encoding.GetEncoding(1252))
     End Sub
 
@@ -312,4 +298,43 @@ Public Class Subrutinas
         fHistorial.Text = "Historial"
         fHistorial.Show()
     End Sub
+
+    Public Shared Function LeeCSV(archivo As String, esPrincipal As Boolean) As List(Of Libros)
+        Dim numDatos As Integer = 9
+        Dim listaCsv As New List(Of Libros)
+        Using parser As New FileIO.TextFieldParser(archivo, System.Text.Encoding.GetEncoding(1252))
+            parser.TextFieldType = FileIO.FieldType.Delimited
+            parser.SetDelimiters(";")
+
+            If esPrincipal Then
+                tasa.Clear()
+                Dim linea As String()
+                linea = parser.ReadFields() 'Saltea la 1er linea
+                linea = parser.ReadFields()
+                For Each x In linea
+                    tasa.Add(CSng(x) / 100)
+                Next
+                linea = parser.ReadFields()
+                hora = linea(0) + "/" + linea(1) + "/" + linea(2) + " " + linea(3) + ":" + linea(4) + ":" + linea(5)
+            End If
+
+            Dim id As Integer = 0
+            While Not parser.EndOfData
+                Dim linea(numDatos) As String
+                linea = parser.ReadFields()
+                linea(2) = ExtraeNumeros(linea(2))
+                linea(4) = Redondea(CInt(linea(4)), 50)
+                linea(9) = id.ToString
+                id += 1
+                listaCsv.Add(New Libros(linea))
+            End While
+        End Using
+        Return listaCsv
+    End Function
+
+    Public Shared Function CargaActualizacion(archivo As String) As List(Of Libros)
+        Dim listaActualizacion As New List(Of Libros)
+        listaActualizacion = LeeCSV(archivo, False)
+        Return listaActualizacion
+    End Function
 End Class
