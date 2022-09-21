@@ -264,6 +264,18 @@ Public Class Subrutinas
         Next
     End Sub
 
+    Shared Sub BulkDelete(itemsSeleccionados As List(Of Integer))
+        For Each x As Integer In itemsSeleccionados
+            libro.RemoveAt(x)
+        Next
+        Dim i As Integer = 0
+        For Each x As Libros In libro
+            x.id = i
+            i += 1
+        Next
+
+    End Sub
+
     Public Shared Sub EliminaLibro(id As Integer)
         Dim i As Integer = 0
         libro.RemoveAt(id)
@@ -316,4 +328,6 @@ Public Class Subrutinas
         'texto = String.Join(vbCrLf, historial)
         'MsgBox(texto, MsgBoxStyle.Information, "Historial")
     End Sub
+
+
 End Class

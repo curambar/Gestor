@@ -99,10 +99,29 @@ Public Class fMain
                 btnBuscar.PerformClick()
             End If
         End If
+
+        If e.KeyCode = Keys.Delete And e.Control Then
+            Dim itemsSeleccionados As New List(Of Integer)
+            For Each x As ListViewItem In lvResultadosBusqueda.SelectedItems
+                Dim renglon As Integer = x.Index
+                Dim id As Integer = Convert.ToInt32(lvResultadosBusqueda.Items(renglon).Name)
+                itemsSeleccionados.Add(id)
+            Next
+            If MsgBox("Confirma la eliminación de estos títulos?", vbOKCancel + MsgBoxStyle.DefaultButton2, "Confirma eliminación") = MsgBoxResult.Cancel Then
+                Exit Sub
+            End If
+            itemsSeleccionados.Sort(Function(x, y) y.CompareTo(x))
+            Subrutinas.BulkDelete(itemsSeleccionados)
+            Subrutinas.GuardarCambiosADisco()
+            lvResultadosBusqueda.Items.Clear()
+            txtInput.Focus()
+            btnBuscar.PerformClick()
+        End If
     End Sub
 
     Private Sub lvData_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lvResultadosBusqueda.SelectedIndexChanged
         'captura el indice donde se hizo clic
+        If My.Computer.Keyboard.CtrlKeyDown Then Exit Sub
         Dim renglon As Integer = lvResultadosBusqueda.FocusedItem.Index    'El indice del Listview seleccionado
         Dim id As Integer = Convert.ToInt32(lvResultadosBusqueda.Items(renglon).Name)   'El indice del libro seleccionado
         PresentaDatos(libro(id))
