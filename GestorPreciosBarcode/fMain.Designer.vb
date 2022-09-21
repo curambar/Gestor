@@ -49,10 +49,14 @@ Partial Class fMain
         Me.lblID = New System.Windows.Forms.Label()
         Me.btnCancel = New System.Windows.Forms.Button()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.MenuStrip1 = New System.Windows.Forms.MenuStrip()
+        Me.ActualizarToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.ActualizarToolStripMenuItem1 = New System.Windows.Forms.ToolStripMenuItem()
         Me.pnlInput.SuspendLayout()
         Me.pnlProyectar.SuspendLayout()
         Me.pnlPresentacion.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.MenuStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'lvResultadosBusqueda
@@ -61,7 +65,7 @@ Partial Class fMain
         Me.lvResultadosBusqueda.Cursor = System.Windows.Forms.Cursors.Arrow
         Me.lvResultadosBusqueda.FullRowSelect = True
         Me.lvResultadosBusqueda.GridLines = True
-        Me.lvResultadosBusqueda.Location = New System.Drawing.Point(11, 173)
+        Me.lvResultadosBusqueda.Location = New System.Drawing.Point(11, 192)
         Me.lvResultadosBusqueda.Name = "lvResultadosBusqueda"
         Me.lvResultadosBusqueda.Size = New System.Drawing.Size(773, 183)
         Me.lvResultadosBusqueda.TabIndex = 15
@@ -106,7 +110,7 @@ Partial Class fMain
         Me.pnlInput.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
         Me.pnlInput.Controls.Add(Me.btnBuscar)
         Me.pnlInput.Controls.Add(Me.txtInput)
-        Me.pnlInput.Location = New System.Drawing.Point(6, 12)
+        Me.pnlInput.Location = New System.Drawing.Point(6, 31)
         Me.pnlInput.Name = "pnlInput"
         Me.pnlInput.Size = New System.Drawing.Size(213, 50)
         Me.pnlInput.TabIndex = 4
@@ -141,7 +145,7 @@ Partial Class fMain
         Me.pnlProyectar.Controls.Add(Me.txtVlr)
         Me.pnlProyectar.Controls.Add(Me.txtAno)
         Me.pnlProyectar.Controls.Add(Me.txtMes)
-        Me.pnlProyectar.Location = New System.Drawing.Point(6, 68)
+        Me.pnlProyectar.Location = New System.Drawing.Point(6, 87)
         Me.pnlProyectar.Name = "pnlProyectar"
         Me.pnlProyectar.Size = New System.Drawing.Size(213, 99)
         Me.pnlProyectar.TabIndex = 5
@@ -242,7 +246,7 @@ Partial Class fMain
         Me.pnlPresentacion.Controls.Add(Me.lblID)
         Me.pnlPresentacion.Controls.Add(Me.btnCancel)
         Me.pnlPresentacion.Controls.Add(Me.btnSave)
-        Me.pnlPresentacion.Location = New System.Drawing.Point(402, 12)
+        Me.pnlPresentacion.Location = New System.Drawing.Point(402, 31)
         Me.pnlPresentacion.Name = "pnlPresentacion"
         Me.pnlPresentacion.Size = New System.Drawing.Size(376, 155)
         Me.pnlPresentacion.TabIndex = 0
@@ -290,26 +294,49 @@ Partial Class fMain
         '
         Me.PictureBox1.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
         Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
-        Me.PictureBox1.Location = New System.Drawing.Point(225, 12)
+        Me.PictureBox1.Location = New System.Drawing.Point(225, 31)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(171, 155)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom
         Me.PictureBox1.TabIndex = 16
         Me.PictureBox1.TabStop = False
         '
+        'MenuStrip1
+        '
+        Me.MenuStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ActualizarToolStripMenuItem, Me.ActualizarToolStripMenuItem1})
+        Me.MenuStrip1.Location = New System.Drawing.Point(0, 0)
+        Me.MenuStrip1.Name = "MenuStrip1"
+        Me.MenuStrip1.Size = New System.Drawing.Size(784, 24)
+        Me.MenuStrip1.TabIndex = 17
+        Me.MenuStrip1.Text = "MenuStrip1"
+        '
+        'ActualizarToolStripMenuItem
+        '
+        Me.ActualizarToolStripMenuItem.Name = "ActualizarToolStripMenuItem"
+        Me.ActualizarToolStripMenuItem.Size = New System.Drawing.Size(46, 20)
+        Me.ActualizarToolStripMenuItem.Text = "&Tasas"
+        '
+        'ActualizarToolStripMenuItem1
+        '
+        Me.ActualizarToolStripMenuItem1.Name = "ActualizarToolStripMenuItem1"
+        Me.ActualizarToolStripMenuItem1.Size = New System.Drawing.Size(71, 20)
+        Me.ActualizarToolStripMenuItem1.Text = "&Actualizar"
+        '
         'fMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.DarkGray
-        Me.ClientSize = New System.Drawing.Size(784, 361)
+        Me.ClientSize = New System.Drawing.Size(784, 397)
         Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.pnlPresentacion)
         Me.Controls.Add(Me.pnlProyectar)
         Me.Controls.Add(Me.pnlInput)
         Me.Controls.Add(Me.lvResultadosBusqueda)
+        Me.Controls.Add(Me.MenuStrip1)
         Me.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle
         Me.KeyPreview = True
+        Me.MainMenuStrip = Me.MenuStrip1
         Me.MaximizeBox = False
         Me.Name = "fMain"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
@@ -321,7 +348,10 @@ Partial Class fMain
         Me.pnlProyectar.PerformLayout()
         Me.pnlPresentacion.ResumeLayout(False)
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.MenuStrip1.ResumeLayout(False)
+        Me.MenuStrip1.PerformLayout()
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
     Friend WithEvents lvResultadosBusqueda As System.Windows.Forms.ListView
@@ -350,5 +380,8 @@ Partial Class fMain
     Friend WithEvents lblID As System.Windows.Forms.Label
     Friend WithEvents PictureBox1 As System.Windows.Forms.PictureBox
     Friend WithEvents btnEliminar As System.Windows.Forms.Button
+    Friend WithEvents MenuStrip1 As System.Windows.Forms.MenuStrip
+    Friend WithEvents ActualizarToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents ActualizarToolStripMenuItem1 As System.Windows.Forms.ToolStripMenuItem
 
 End Class

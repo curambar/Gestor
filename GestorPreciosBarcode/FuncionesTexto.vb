@@ -44,7 +44,18 @@ Module FuncionesTexto
     End Function
 
     Public Function FechaHora() As String
-        Return Now.ToString("yyMMdd-hh.mm.ss - ")
+        Return Now.ToString("yy;MM;dd;hh;mm;ss")
+    End Function
+
+    Public Function LineaAños() As String
+        Dim linea As New List(Of String)
+        For i As Integer = 10 To 22
+            linea.Add(i.ToString)
+        Next
+        Return String.Join(";", linea)
+    End Function
+    Public Function LineaTasas(tasa As List(Of Single)) As String
+        Return String.Join(";", tasa)
     End Function
 
 End Module
