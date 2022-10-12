@@ -1,20 +1,14 @@
 ﻿Imports Buscador.Globales
-Imports Microsoft.Office.Interop
 Public Class fMain
-
     Dim grupoTextbox As New List(Of TextBox)
-
     Private Sub fGestor_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Subrutinas.CargaInicial()
         Me.CenterToScreen()
         Me.Icon = My.Resources.Uppsala
         lblID.Text = ""
         GeneraTextbox()
-
     End Sub
-
     Private Sub sProyectar()
-
         Dim mes As Byte
         Dim ano As Byte
         Dim valor As Decimal
@@ -47,14 +41,12 @@ Public Class fMain
         lblProy.Text = Subrutinas.Proyectar(mes, ano - 10, valor).ToString
 
     End Sub
-
     Private Sub LimpiaProyector()
         txtMes.Text = ""
         txtAno.Text = ""
         txtVlr.Text = ""
         txtInput.Focus()
     End Sub
-
     Private Sub lvResultadosBusqueda_KeyDown(sender As Object, e As KeyEventArgs) Handles lvResultadosBusqueda.KeyDown
 
         If e.KeyCode = Keys.Enter Then
@@ -118,7 +110,6 @@ Public Class fMain
             btnBuscar.PerformClick()
         End If
     End Sub
-
     Private Sub lvData_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lvResultadosBusqueda.SelectedIndexChanged
         'captura el indice donde se hizo clic
         If My.Computer.Keyboard.CtrlKeyDown Then Exit Sub
@@ -126,27 +117,20 @@ Public Class fMain
         Dim id As Integer = Convert.ToInt32(lvResultadosBusqueda.Items(renglon).Name)   'El indice del libro seleccionado
         PresentaDatos(libro(id))
     End Sub
-
-
-
     Private Sub btnBuscar_Click(sender As Object, e As EventArgs) Handles btnBuscar.Click
         EjecutaBusqueda()
     End Sub
-
     Private Sub btnProyectar_Click(sender As Object, e As EventArgs) Handles btnProyectar.Click
         sProyectar()
     End Sub
-
     Private Sub fGestor_Shown(sender As Object, e As EventArgs) Handles MyBase.Shown
         txtInput.Focus()
     End Sub
-
     Private Sub btnCancel_Click(sender As Object, e As EventArgs) Handles btnCancel.Click
         TxtClean()
         grupoTextbox(0).Focus()
         grupoTextbox(0).SelectAll()
     End Sub
-
     Public Sub TxtClean()
         grupoTextbox(0).Text = "Título"
         grupoTextbox(1).Text = "Autor"
@@ -159,7 +143,6 @@ Public Class fMain
         lblID.Text = ""
 
     End Sub
-
     Private Sub btnEliminar_Click(sender As Object, e As EventArgs) Handles btnEliminar.Click
 
         If lblID.Text = "" Then Exit Sub
@@ -175,7 +158,6 @@ Public Class fMain
         txtInput.Focus()
         btnBuscar.PerformClick()
     End Sub
-
     Private Sub btnSave_Click(sender As Object, e As EventArgs) Handles btnSave.Click
         If Not IsNumeric(grupoTextbox(2).Text) Then
             MsgBox("Ingrese un PVP válido", MsgBoxStyle.Exclamation, "Error")
@@ -240,9 +222,8 @@ Public Class fMain
         txtInput.Text = item.isbn
         btnBuscar.PerformClick()
     End Sub
-
     Public Sub PresentaDatos(item As Libros)
-        Dim fecha As String = item.mes.ToString.Trim & "/" & item.ano.ToString.Trim
+        Dim fecha As String = item.mes.ToString.Trim & "/" & item.año.ToString.Trim
 
         grupoTextbox(0).Text = item.titulo
         grupoTextbox(1).Text = item.autor
@@ -257,11 +238,10 @@ Public Class fMain
         PortaPapeles(item.titulo, item.isbn, item.editorial, item.sello, item.pvp.ToString)
 
     End Sub
-
     Private Sub EjecutaBusqueda()
         Dim busqueda As New List(Of Integer)
         If txtInput.Text.IndexOf(":") >= 0 Then
-            busqueda = Subrutinas.BusquedaEspacios(txtInput.Text)
+            busqueda = Subrutinas.BusquedaPorCampos(txtInput.Text)
         Else
             busqueda = Subrutinas.Buscar(txtInput.Text)
         End If
@@ -276,7 +256,6 @@ Public Class fMain
         If busqueda Is Nothing Then Exit Sub
         PresentaBusqueda(busqueda)
     End Sub
-
     Public Shared Sub PresentaBusqueda(items As List(Of Integer))
         For Each f In items
             Dim renglon As New ListViewItem
@@ -285,7 +264,6 @@ Public Class fMain
             fMain.PresentaDatos(libro(f))
         Next
     End Sub
-
     Private Sub fGestor_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
         If e.KeyCode = Keys.Escape Then
             txtInput.Focus()
@@ -299,7 +277,6 @@ Public Class fMain
                 Subrutinas.MuestraHistorial()
         End Select
     End Sub
-
     'Textbox de búsqueda estándar
     Private Sub txtInput_Keypress(sender As Object, e As KeyPressEventArgs) Handles txtInput.KeyPress
         If Asc(e.KeyChar) = 13 Then
@@ -307,7 +284,6 @@ Public Class fMain
             e.Handled = True
         End If
     End Sub
-
     'Textboxes de Proyección
     Private Sub txtMes_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtMes.KeyPress
         If Asc(e.KeyChar) = 13 Then
@@ -327,18 +303,6 @@ Public Class fMain
             e.Handled = True
         End If
     End Sub
-
-    Private Sub EscribeAExcelTest()
-        Dim nombrePlanilla As String = "C:\Uppsala\Planillas\2021\11 - Planilla Ventas Noviembre.xlsx"
-        Dim xlApp As Excel.Application
-        Dim xlBook As Excel.Workbook
-        Dim xlSheet As Excel.Worksheet
-        xlApp = CType(System.Runtime.InteropServices.Marshal.GetActiveObject("Excel.Application"), Excel.Application)
-        xlBook = GetObject(nombrePlanilla)
-        xlSheet = xlBook.ActiveSheet
-        xlSheet.Cells(6, 2).Formula = "Sarasa"
-    End Sub
-
     Private Sub GeneraTextbox()
         For i = 0 To 7
             Dim t As New TextBox
@@ -388,7 +352,6 @@ Public Class fMain
             AddHandler t.KeyPress, AddressOf grupoTextbox_KeyPress
         Next
     End Sub
-
     Private Sub grupoTextbox_KeyPress(sender As Object, e As KeyPressEventArgs)
         Dim tagSender = sender.Tag
 
@@ -404,53 +367,9 @@ Public Class fMain
                 grupoTextbox(tagSender + 1).Focus()
                 grupoTextbox(tagSender + 1).SelectAll()
             End If
-            
+
             e.Handled = True
         End If
     End Sub
-
-    Private Sub ActualizarToolStripMenuItem1_Click(sender As Object, e As EventArgs) Handles ActualizarToolStripMenuItem1.Click
-        'Abre un CSV conteniendo actualizacion de precios
-        'Arma una lista de "libro" con los datos a actualizar
-        'Finalmente ejecuta la rutina de actualizacion
-
-        Dim myStream As System.IO.Stream = Nothing
-        Dim openFileDialog1 As New OpenFileDialog()
-        openFileDialog1.InitialDirectory = System.AppDomain.CurrentDomain.BaseDirectory()
-        openFileDialog1.Filter = "CSV (*.csv)|*.csv|Excel (*.xlsx)|*.xlsx|Excel 97 (*.xls)|*.xls"
-        openFileDialog1.FilterIndex = 2
-        openFileDialog1.RestoreDirectory = True
-
-        If openFileDialog1.ShowDialog() = System.Windows.Forms.DialogResult.OK Then
-            Dim datos As New List(Of List(Of String))
-            datos = Subrutinas.ExtraeDatos(openFileDialog1.FileName)
-            Dim numFilas As Integer = datos.Count
-            Dim numColumnas As Integer = datos(0).Count
-
-            Dim formDatos As New formDatosActualizacion
-            Dim tablaDatos As New ListView
-            tablaDatos.View = View.Details
-            tablaDatos.GridLines = True
-            tablaDatos.HeaderStyle = ColumnHeaderStyle.Clickable
-            tablaDatos.Scrollable = True
-            tablaDatos.AllowColumnReorder = True
-
-
-            For Each dato As String In datos(0)
-                tablaDatos.Columns.Add(dato, 100)
-            Next
-            tablaDatos.Width = 110 * datos(0).Count
-            formDatos.Width = tablaDatos.Width + 30
-            For i As Integer = 1 To numFilas - 1
-                Dim linea() As String = datos(i).ToArray
-                Dim fila As ListViewItem
-                fila = New ListViewItem(linea)
-                tablaDatos.Items.Add(fila)
-            Next
-            formDatos.Controls.Add(tablaDatos)
-            'tablaDatos.Bounds = New Rectangle(New Point(10, 10), New Size(300, 200))
-            formDatos.Show()
-        End If
-    End Sub
-End Class
+    End Class
 

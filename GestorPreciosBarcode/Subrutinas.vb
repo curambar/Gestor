@@ -1,9 +1,7 @@
-﻿'Imports System.Text
-Imports Buscador.Globales
+﻿Imports Buscador.Globales
 Imports Microsoft.Office.Interop
-
+Imports System.IO
 Public Class Subrutinas
-
     Public Class Condicion
         Public input As String
         Public espacio As String
@@ -18,13 +16,12 @@ Public Class Subrutinas
             End If
         End Sub
     End Class
-
     Public Shared Sub CargaInicial()
         libro.Clear()
-        libro = LeeCSV("Precios.csv", True)
+        libro = CargaLibros()
+        tasa = CargaTasas()
         ActualizaBackup()
     End Sub
-
     Public Shared Sub ActualizaBackup()
         Dim i As Integer
         For i = 8 To 0 Step -1
@@ -37,25 +34,26 @@ Public Class Subrutinas
         Next
         System.IO.File.Copy("Precios.csv", "Backup\Precios0.csv", True)
     End Sub
-
-    Public Shared Function LeeCSV(archivo As String, esPrincipal As Boolean) As List(Of Libros)
+    Public Shared Function CargaTasas() As List(Of Integer)
+        Dim archivo As String = "Tasas.txt"
+        Dim listaTasas As New List(Of Integer)
+        Dim sr As StreamReader
+        Dim linea As String
+        sr = New StreamReader(archivo)
+        While Not sr.EndOfStream
+            linea = sr.ReadLine
+            listaTasas.Add(CInt(linea))
+        End While
+        sr = Nothing
+        Return listaTasas
+    End Function
+    Public Shared Function CargaLibros() As List(Of Libros)
         Dim numDatos As Integer = 9
         Dim listaCsv As New List(Of Libros)
+        Dim archivo As String = "Precios.csv"
         Using parser As New FileIO.TextFieldParser(archivo, System.Text.Encoding.GetEncoding(1252))
             parser.TextFieldType = FileIO.FieldType.Delimited
             parser.SetDelimiters(";")
-
-            If esPrincipal Then
-                tasa.Clear()
-                Dim linea As String()
-                linea = parser.ReadFields() 'Saltea la 1er linea
-                linea = parser.ReadFields() 'Lee tasas de interes
-                For Each x In linea
-                    tasa.Add(CSng(x) / 100)
-                Next
-                linea = parser.ReadFields() 'Lee Fecha y Hora
-                hora = linea(0) + "/" + linea(1) + "/" + linea(2) + " " + linea(3) + ":" + linea(4) + ":" + linea(5)
-            End If
 
             Dim id As Integer = 0
             While Not parser.EndOfData
@@ -70,11 +68,9 @@ Public Class Subrutinas
         End Using
         Return listaCsv
     End Function
-
-    Public Shared Function Buscar(_input As String) As List(Of Integer)
-        If _input = "" Then Return Nothing
-        Dim input As String = _input
-        Dim datosbusqueda As New List(Of Integer)
+    Public Shared Function Buscar(input As String) As List(Of Integer)
+        If input = "" Then Return Nothing
+        Dim datosBusqueda As New List(Of Integer)
 
         If IsNumeric(input) And input.Length > 9 Then
             'probable isbn, recorta las puntas para armar un ISBN-9
@@ -92,22 +88,21 @@ Public Class Subrutinas
             Dim isbnInput As String = ExtraeNumeros(input)
 
             If isbnInput <> "" And isbnInput.Length > 4 And isbn.IndexOf(isbnInput) >= 0 Then
-                datosbusqueda.Add(i)
+                datosBusqueda.Add(i)
             End If
-            If titulo.IndexOf(input) >= 0 Then datosbusqueda.Add(i)
-            If autor.IndexOf(input) >= 0 Then datosbusqueda.Add(i)
+            If titulo.IndexOf(input) >= 0 Then datosBusqueda.Add(i)
+            If autor.IndexOf(input) >= 0 Then datosBusqueda.Add(i)
 
-            If datosbusqueda.Count > 100 Then
-                MsgBox("Demasiados resultados, mostrando los primeros 100")
-                Return datosbusqueda
+            If datosBusqueda.Count > 50 Then
+                MsgBox("Demasiados resultados, mostrando los primeros 50")
+                Return datosBusqueda
             End If
         Next i
 
         Return datosbusqueda
 
     End Function
-
-    Public Shared Function BusquedaEspacios(inputEspacios As String) As List(Of Integer)
+    Public Shared Function BusquedaPorCampos(inputEspacios As String) As List(Of Integer)
 
         Dim subInput() As String = inputEspacios.Split(";")
         Dim condiciones As New List(Of Condicion)
@@ -162,17 +157,13 @@ Public Class Subrutinas
 
             Next
             If matches = condiciones.Count Then datosBusqueda.Add(i)
-            If datosBusqueda.Count > 100 Then
-                MsgBox("Demasiados resultados, mostrando los primeros 100")
+            If datosBusqueda.Count > 50 Then
+                MsgBox("Demasiados resultados, mostrando los primeros 50")
                 Return datosBusqueda
             End If
         Next i
-
         Return datosBusqueda
-
-        Return Nothing
     End Function
-
     Public Shared Function PreparaListviewItem(item As Libros) As ListViewItem
         Dim aux(0 To 8) As String
         aux(0) = item.titulo
@@ -181,7 +172,7 @@ Public Class Subrutinas
         aux(3) = item.editorial
         aux(4) = item.pvp.ToString
         aux(5) = item.fecha
-        aux(6) = Proyectar(item.mes, item.ano - 10, item.pvp).ToString
+        aux(6) = Proyectar(item.mes, item.año - 10, item.pvp).ToString
         aux(7) = item.sello
         aux(8) = item.tema
 
@@ -191,7 +182,6 @@ Public Class Subrutinas
         Return renglon
 
     End Function
-
     Public Shared Sub AgregaItemAListview(renglon As ListViewItem, lview As ListView)
         Dim colorback As Color = Color.FromArgb(192, 192, 192)
         If lview.Items.Count Mod 2 = 0 Then
@@ -200,7 +190,6 @@ Public Class Subrutinas
         End If
         lview.Items.Add(renglon)
     End Sub
-
     Public Shared Function Proyectar(mesDato As Integer, anoDato As Integer, valor As Single) As Single
 
         Dim a_index As Integer
@@ -246,7 +235,6 @@ Public Class Subrutinas
         Return (Math.Ceiling(valor / 10) * 10)
 
     End Function
-
     Public Shared Sub EditaAgrega(item As Libros, nuevo As Boolean)
         If nuevo Then
             libro.Add(item)
@@ -255,32 +243,25 @@ Public Class Subrutinas
             libro(item.id) = item
         End If
     End Sub
-
-    Public Shared Sub EditLibro(_libro As Libros, valores() As String)
+    Public Shared Sub EditLibro(libro As Libros, valores() As String)
         'Reemplaza todos los valores de un libro; actualiza la fecha y lo marca como editado
         Dim mes As String = Month(Now).ToString
         Dim ano As String = (Year(Now) - 2000).ToString
         If Not valores(3).StartsWith("*") Then valores(3) = "*" & valores(3)
         valores(5) = mes
         valores(6) = ano
-
-        _libro.updateFromArray(valores)
+        libro.updateFromArray(valores)
     End Sub
-
     Public Shared Sub BulkEdit(listaId As List(Of Integer), nuevoValor As String, tipo As Integer)
-
         For Each x In listaId
             Dim aux() As String
             aux = libro(x).array
-
             'Actualiza valor solicitado
             aux(tipo) = nuevoValor
-
             'Actualiza datos del libro
             EditLibro(libro(x), aux)
         Next
     End Sub
-
     Shared Sub BulkDelete(itemsSeleccionados As List(Of Integer))
         For Each x As Integer In itemsSeleccionados
             libro.RemoveAt(x)
@@ -291,7 +272,6 @@ Public Class Subrutinas
             i += 1
         Next
     End Sub
-
     Public Shared Sub EliminaLibro(id As Integer)
         libro.RemoveAt(id)
         Dim i As Integer = 0
@@ -300,21 +280,16 @@ Public Class Subrutinas
             i += 1
         Next
     End Sub
-
     Public Shared Sub GuardaCSV()
         Dim rutaRaiz As String = System.AppDomain.CurrentDomain.BaseDirectory()
         Dim archivoPrecios As String = My.Computer.FileSystem.CombinePath(rutaRaiz, "Precios.csv")
         Dim textoCompleto As New List(Of String)
-
-        textoCompleto.Add(LineaAños)
-        textoCompleto.Add(LineaTasas(tasa))
-        textoCompleto.Add(FechaHora)
         For Each x In libro
             textoCompleto.Add(x.linea)
         Next
         System.IO.File.WriteAllLines(archivoPrecios, textoCompleto, System.Text.Encoding.GetEncoding(1252))
+        textoCompleto = Nothing
     End Sub
-
     Public Shared Function ExtraeEditoriales() As List(Of String)
         Dim editoriales As New List(Of String)
         For Each item In libro.Distinct.GroupBy(Function(x) x.editorial).Select(Function(d) d.First()).ToList()
@@ -322,7 +297,6 @@ Public Class Subrutinas
         Next
         Return editoriales
     End Function
-
     Public Shared Function ExtraeAutores() As List(Of String)
         Dim autores As New List(Of String)
         For Each item In libro.Distinct.GroupBy(Function(x) x.autor).Select(Function(d) d.First()).ToList()
@@ -330,43 +304,13 @@ Public Class Subrutinas
         Next
         Return autores
     End Function
-
     Public Shared Function Redondea(valor As Decimal, minimo As Integer)
         Return ((minimo * Math.Ceiling(valor / minimo)).ToString)
     End Function
-
     Public Shared Sub MuestraHistorial()
         Dim fHistorial As New formHistorial
         fHistorial.Text = "Historial"
         fHistorial.Show()
     End Sub
-
-    Public Shared Function CargaActualizacion(archivo As String) As List(Of Libros)
-        Dim listaActualizacion As New List(Of Libros)
-        listaActualizacion = LeeCSV(archivo, False)
-        Return listaActualizacion
-    End Function
-
-    Shared Function ExtraeDatos(archivo As String) As List(Of List(Of String))
-        Dim datos As New List(Of List(Of String))
-        Dim xlApp As Excel.Application
-        Dim xlBook As Excel.Workbook
-        Dim xlSheet As Excel.Worksheet
-        xlApp = CType(System.Runtime.InteropServices.Marshal.GetActiveObject("Excel.Application"), Excel.Application)
-        xlBook = GetObject(archivo)
-        xlSheet = xlBook.ActiveSheet
-        Dim numeroColumnas As Integer
-        Dim numeroFilas As Integer
-        numeroColumnas = xlSheet.Cells(1, xlSheet.Columns.Count).End(Excel.XlDirection.xlToLeft).Column
-        numeroFilas = xlSheet.Cells(xlSheet.Rows.Count, 1).End(Excel.XlDirection.xlUp).Row
-        For fila As Integer = 1 To numeroFilas
-            Dim linea As New List(Of String)
-            For columna As Integer = 1 To numeroColumnas
-                linea.Add(xlSheet.Cells(fila, columna).Formula)
-            Next
-            datos.Add(linea)
-        Next
-        Return datos
-    End Function
 
 End Class

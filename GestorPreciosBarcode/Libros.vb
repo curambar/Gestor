@@ -6,7 +6,7 @@
     Public editorial As String
     Public pvp As Integer
     Public mes As Integer
-    Public ano As Integer
+    Public año As Integer
     Public sello As String
     Public tema As String
     Public array() As String
@@ -19,7 +19,7 @@
         editorial = libro(3)
         pvp = CInt(libro(4))
         mes = CInt(libro(5))
-        ano = CInt(libro(6))
+        año = CInt(libro(6))
         sello = libro(7)
         tema = libro(8)
 
@@ -29,7 +29,7 @@
     End Sub
 
     Function fecha() As String
-        Return (mes.ToString.PadLeft(2, "0") & "/" & ano.ToString.PadLeft(2, "0"))
+        Return (mes.ToString.PadLeft(2, "0") & "/" & año.ToString.PadLeft(2, "0"))
     End Function
 
     Function linea() As String
@@ -44,7 +44,7 @@
         editorial = aux(3)
         pvp = CInt(aux(4))
         mes = CInt(aux(5))
-        ano = CInt(aux(6))
+        año = CInt(aux(6))
         sello = aux(7)
         tema = aux(8)
     End Sub

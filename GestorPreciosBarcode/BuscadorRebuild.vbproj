@@ -101,12 +101,6 @@
       <DependentUpon>fMain.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="formDatosActualizacion.Designer.vb">
-      <DependentUpon>formDatosActualizacion.vb</DependentUpon>
-    </Compile>
-    <Compile Include="formDatosActualizacion.vb">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="formHistorial.Designer.vb">
       <DependentUpon>formHistorial.vb</DependentUpon>
     </Compile>
