@@ -1,0 +1,30 @@
+D:\Code\Projects\GestorPreciosBarcode - Test\GestorPreciosBarcode\bin\Debug\Buscador.exe.config
+D:\Code\Projects\GestorPreciosBarcode - Test\GestorPreciosBarcode\bin\Debug\Buscador.exe
+D:\Code\Projects\GestorPreciosBarcode - Test\GestorPreciosBarcode\bin\Debug\Buscador.pdb
+D:\Code\Projects\GestorPreciosBarcode - Test\GestorPreciosBarcode\bin\Debug\Buscador.xml
+D:\Code\Projects\GestorPreciosBarcode - Test\GestorPreciosBarcode\obj\Debug\Buscador.fGestor.resources
+D:\Code\Projects\GestorPreciosBarcode - Test\GestorPreciosBarcode\obj\Debug\Buscador.Resources.resources
+D:\Code\Projects\GestorPreciosBarcode - Test\GestorPreciosBarcode\obj\Debug\Buscador.vbproj.GenerateResource.Cache
+D:\Code\Projects\GestorPreciosBarcode - Test\GestorPreciosBarcode\obj\Debug\Buscador.exe
+D:\Code\Projects\GestorPreciosBarcode - Test\GestorPreciosBarcode\obj\Debug\Buscador.xml
+D:\Code\Projects\GestorPreciosBarcode - Test\GestorPreciosBarcode\obj\Debug\Buscador.pdb
+C:\Cosas\Code\GestorPreciosBarcode - Test\GestorPreciosBarcode\bin\Debug\Buscador.exe.config
+C:\Cosas\Code\GestorPreciosBarcode - Test\GestorPreciosBarcode\obj\Debug\Buscador.exe
+C:\Cosas\Code\GestorPreciosBarcode - Test\GestorPreciosBarcode\obj\Debug\Buscador.xml
+C:\Cosas\Code\GestorPreciosBarcode - Test\GestorPreciosBarcode\obj\Debug\Buscador.pdb
+C:\Cosas\Code\GestorPreciosBarcode - Test\GestorPreciosBarcode\bin\Debug\Buscador.exe
+C:\Cosas\Code\GestorPreciosBarcode - Test\GestorPreciosBarcode\bin\Debug\Buscador.pdb
+C:\Cosas\Code\GestorPreciosBarcode - Test\GestorPreciosBarcode\bin\Debug\Buscador.xml
+C:\Cosas\Code\GestorPreciosBarcode - Test\GestorPreciosBarcode\obj\Debug\Buscador.fGestor.resources
+C:\Cosas\Code\GestorPreciosBarcode - Test\GestorPreciosBarcode\obj\Debug\Buscador.Resources.resources
+C:\Cosas\Code\GestorPreciosBarcode - Test\GestorPreciosBarcode\obj\Debug\Buscador.vbproj.GenerateResource.Cache
+C:\Cosas\Code\GestorUppsala\GestorPreciosBarcode\bin\Debug\Buscador.exe.config
+C:\Cosas\Code\GestorUppsala\GestorPreciosBarcode\obj\Debug\Buscador.exe
+C:\Cosas\Code\GestorUppsala\GestorPreciosBarcode\obj\Debug\Buscador.xml
+C:\Cosas\Code\GestorUppsala\GestorPreciosBarcode\obj\Debug\Buscador.pdb
+C:\Cosas\Code\GestorUppsala\GestorPreciosBarcode\bin\Debug\Buscador.exe
+C:\Cosas\Code\GestorUppsala\GestorPreciosBarcode\bin\Debug\Buscador.pdb
+C:\Cosas\Code\GestorUppsala\GestorPreciosBarcode\bin\Debug\Buscador.xml
+C:\Cosas\Code\GestorUppsala\GestorPreciosBarcode\obj\Debug\Buscador.Resources.resources
+C:\Cosas\Code\GestorUppsala\GestorPreciosBarcode\obj\Debug\Buscador.vbproj.GenerateResource.Cache
+C:\Cosas\Code\GestorUppsala\GestorPreciosBarcode\obj\Debug\Buscador.fMain.resources

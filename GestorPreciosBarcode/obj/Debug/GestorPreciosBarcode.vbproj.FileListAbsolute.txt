@@ -1,0 +1,33 @@
+d:\Documentos\Visual Studio 2013\Projects\GestorPreciosBarcode\GestorPreciosBarcode\bin\Debug\GestorPreciosBarcode.exe.config
+d:\Documentos\Visual Studio 2013\Projects\GestorPreciosBarcode\GestorPreciosBarcode\bin\Debug\GestorPreciosBarcode.exe
+d:\Documentos\Visual Studio 2013\Projects\GestorPreciosBarcode\GestorPreciosBarcode\bin\Debug\GestorPreciosBarcode.pdb
+d:\Documentos\Visual Studio 2013\Projects\GestorPreciosBarcode\GestorPreciosBarcode\bin\Debug\GestorPreciosBarcode.xml
+d:\Documentos\Visual Studio 2013\Projects\GestorPreciosBarcode\GestorPreciosBarcode\obj\Debug\Gestor3.fGestor.resources
+d:\Documentos\Visual Studio 2013\Projects\GestorPreciosBarcode\GestorPreciosBarcode\obj\Debug\Gestor3.Resources.resources
+d:\Documentos\Visual Studio 2013\Projects\GestorPreciosBarcode\GestorPreciosBarcode\obj\Debug\GestorPreciosBarcode.vbproj.GenerateResource.Cache
+d:\Documentos\Visual Studio 2013\Projects\GestorPreciosBarcode\GestorPreciosBarcode\obj\Debug\GestorPreciosBarcode.exe
+d:\Documentos\Visual Studio 2013\Projects\GestorPreciosBarcode\GestorPreciosBarcode\obj\Debug\GestorPreciosBarcode.xml
+d:\Documentos\Visual Studio 2013\Projects\GestorPreciosBarcode\GestorPreciosBarcode\obj\Debug\GestorPreciosBarcode.pdb
+d:\Documentos\Visual Studio 2013\Projects\GestorPreciosBarcode\GestorPreciosBarcode\obj\Debug\GestorPreciosBarcode.vbprojResolveAssemblyReference.cache
+D:\Documentos\Visual Studio 2013\Projects\GestorPreciosBarcode - Test\GestorPreciosBarcode\bin\Debug\GestorPreciosBarcode.exe.config
+D:\Documentos\Visual Studio 2013\Projects\GestorPreciosBarcode - Test\GestorPreciosBarcode\obj\Debug\GestorPreciosBarcode.exe
+D:\Documentos\Visual Studio 2013\Projects\GestorPreciosBarcode - Test\GestorPreciosBarcode\obj\Debug\GestorPreciosBarcode.xml
+D:\Documentos\Visual Studio 2013\Projects\GestorPreciosBarcode - Test\GestorPreciosBarcode\obj\Debug\GestorPreciosBarcode.pdb
+D:\Documentos\Visual Studio 2013\Projects\GestorPreciosBarcode - Test\GestorPreciosBarcode\bin\Debug\GestorPreciosBarcode.exe
+D:\Documentos\Visual Studio 2013\Projects\GestorPreciosBarcode - Test\GestorPreciosBarcode\bin\Debug\GestorPreciosBarcode.pdb
+D:\Documentos\Visual Studio 2013\Projects\GestorPreciosBarcode - Test\GestorPreciosBarcode\bin\Debug\GestorPreciosBarcode.xml
+D:\Documentos\Visual Studio 2013\Projects\GestorPreciosBarcode - Test\GestorPreciosBarcode\obj\Debug\GestorPreciosBarcode.vbprojResolveAssemblyReference.cache
+D:\Documentos\Visual Studio 2013\Projects\GestorPreciosBarcode - Test\GestorPreciosBarcode\obj\Debug\Gestor3.fGestor.resources
+D:\Documentos\Visual Studio 2013\Projects\GestorPreciosBarcode - Test\GestorPreciosBarcode\obj\Debug\Gestor3.Resources.resources
+D:\Documentos\Visual Studio 2013\Projects\GestorPreciosBarcode - Test\GestorPreciosBarcode\obj\Debug\GestorPreciosBarcode.vbproj.GenerateResource.Cache
+D:\Code\Projects\GestorPreciosBarcode - Test\GestorPreciosBarcode\obj\Debug\GestorPreciosBarcode.vbprojResolveAssemblyReference.cache
+D:\Code\Projects\GestorPreciosBarcode - Test\GestorPreciosBarcode\obj\Debug\GestorPreciosBarcode.vbproj.GenerateResource.Cache
+D:\Code\Projects\GestorPreciosBarcode - Test\GestorPreciosBarcode\bin\Debug\Gestor.exe.config
+D:\Code\Projects\GestorPreciosBarcode - Test\GestorPreciosBarcode\bin\Debug\Gestor.exe
+D:\Code\Projects\GestorPreciosBarcode - Test\GestorPreciosBarcode\bin\Debug\Gestor.pdb
+D:\Code\Projects\GestorPreciosBarcode - Test\GestorPreciosBarcode\bin\Debug\Gestor.xml
+D:\Code\Projects\GestorPreciosBarcode - Test\GestorPreciosBarcode\obj\Debug\Gestor4.fGestor.resources
+D:\Code\Projects\GestorPreciosBarcode - Test\GestorPreciosBarcode\obj\Debug\Gestor4.Resources.resources
+D:\Code\Projects\GestorPreciosBarcode - Test\GestorPreciosBarcode\obj\Debug\Gestor.exe
+D:\Code\Projects\GestorPreciosBarcode - Test\GestorPreciosBarcode\obj\Debug\Gestor.xml
+D:\Code\Projects\GestorPreciosBarcode - Test\GestorPreciosBarcode\obj\Debug\Gestor.pdb

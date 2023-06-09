@@ -1,0 +1,13 @@
+C:\Uppsala\Gestor Code\GestorPreciosBarcode\bin\Debug\Buscador.exe.config
+C:\Uppsala\Gestor Code\GestorPreciosBarcode\obj\Debug\BuscadorRebuild.vbproj.ResolveComReference.cache
+C:\Uppsala\Gestor Code\GestorPreciosBarcode\obj\Debug\Buscador.exe
+C:\Uppsala\Gestor Code\GestorPreciosBarcode\obj\Debug\Buscador.xml
+C:\Uppsala\Gestor Code\GestorPreciosBarcode\obj\Debug\Buscador.pdb
+C:\Uppsala\Gestor Code\GestorPreciosBarcode\bin\Debug\Buscador.exe
+C:\Uppsala\Gestor Code\GestorPreciosBarcode\bin\Debug\Buscador.pdb
+C:\Uppsala\Gestor Code\GestorPreciosBarcode\bin\Debug\Buscador.xml
+C:\Uppsala\Gestor Code\GestorPreciosBarcode\obj\Debug\BuscadorRebuild.vbprojResolveAssemblyReference.cache
+C:\Uppsala\Gestor Code\GestorPreciosBarcode\obj\Debug\Buscador.fMain.resources
+C:\Uppsala\Gestor Code\GestorPreciosBarcode\obj\Debug\Buscador.formHistorial.resources
+C:\Uppsala\Gestor Code\GestorPreciosBarcode\obj\Debug\Buscador.Resources.resources
+C:\Uppsala\Gestor Code\GestorPreciosBarcode\obj\Debug\BuscadorRebuild.vbproj.GenerateResource.Cache

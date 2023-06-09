@@ -12,7 +12,7 @@ Public Class fMain
         Dim mes As Byte
         Dim ano As Byte
         Dim valor As Decimal
-
+        Dim texto As String
         Try
             mes = CByte(txtMes.Text)
             ano = CByte(txtAno.Text)
@@ -21,25 +21,21 @@ Public Class fMain
             MsgBox("Ingrese fecha y monto válidos. Error = " & ex.Message)
             Exit Sub
         End Try
-
         If mes < 1 Or mes > 12 Then
             MsgBox("Mes incorrecto")
             Exit Sub
         End If
-
         If ano > Year(Now) - 2000 Then
             MsgBox("Año incorrecto")
             Exit Sub
         End If
-
         If valor > 999999 Then
             MsgBox("Ingrese un valor menor a 1.000.000")
             Exit Sub
         End If
-
         LimpiaProyector()
-        lblProy.Text = Subrutinas.Proyectar(mes, ano - 10, valor).ToString
-
+        texto = Redondea(Proyectar(mes, ano - 10, valor), 50).ToString
+        lblProy.Text = texto
     End Sub
     Private Sub LimpiaProyector()
         txtMes.Text = ""
@@ -48,22 +44,18 @@ Public Class fMain
         txtInput.Focus()
     End Sub
     Private Sub lvResultadosBusqueda_KeyDown(sender As Object, e As KeyEventArgs) Handles lvResultadosBusqueda.KeyDown
-
         If e.KeyCode = Keys.Enter Then
             Dim itemsSeleccionados As New List(Of Integer)
-            Dim textoPrueba As String = ""
+            Dim textoCuadroSeleccion As String
+            textoCuadroSeleccion = "1 - Autor" + vbCrLf + "3 - Editorial" + vbCrLf + "7 - Sello" + vbCrLf + "8 - Tema"
             For Each x As ListViewItem In lvResultadosBusqueda.SelectedItems
-                Dim renglon As Integer = x.Index
-                Dim id As Integer = Convert.ToInt32(lvResultadosBusqueda.Items(renglon).Name)
-                itemsSeleccionados.Add(id)
+                itemsSeleccionados.Add(CInt(x.Name))
             Next
             Dim valor As String
             If e.Shift Then
-                valor = InputBox("1 - Autor" + vbCrLf + "3 - Editorial" + vbCrLf + _
-                                 "7 - Sello" + vbCrLf + "8 - Tema", "Cambiar valor")
+                valor = InputBox(textoCuadroSeleccion, "Cambiar valor")
                 If Not IsNumeric(valor) Then Exit Sub
                 Dim seleccion As Integer = CInt(valor)
-
                 Dim textoInput As String = ""
                 Select Case seleccion
                     Case 1
@@ -91,16 +83,13 @@ Public Class fMain
                 btnBuscar.PerformClick()
             End If
         End If
-
         If e.KeyCode = Keys.Delete And e.Control Then
             Dim itemsSeleccionados As New List(Of Integer)
             For Each x As ListViewItem In lvResultadosBusqueda.SelectedItems
-                Dim renglon As Integer = x.Index
-                Dim id As Integer = Convert.ToInt32(lvResultadosBusqueda.Items(renglon).Name)
-                itemsSeleccionados.Add(id)
+                itemsSeleccionados.Add(CInt(x.Name))
             Next
             If MsgBox("Confirma la eliminación de estos títulos?", vbOKCancel + MsgBoxStyle.DefaultButton2, "Confirma eliminación") = MsgBoxResult.Cancel Then
-                Exit Sub
+                Return
             End If
             itemsSeleccionados.Sort(Function(x, y) y.CompareTo(x))
             Subrutinas.BulkDelete(itemsSeleccionados)
@@ -135,19 +124,17 @@ Public Class fMain
         grupoTextbox(0).Text = "Título"
         grupoTextbox(1).Text = "Autor"
         grupoTextbox(2).Text = "PVP"
-        grupoTextbox(7).Text = Now.ToString("MM/yy")
-        grupoTextbox(3).Text = "ISBN"
-        grupoTextbox(4).Text = "Editorial"
-        grupoTextbox(6).Text = "Tema"
-        grupoTextbox(5).Text = "Sello"
+        grupoTextbox(3).Text = Now.ToString("MM/yy")
+        grupoTextbox(4).Text = "ISBN"
+        grupoTextbox(5).Text = "Editorial"
+        grupoTextbox(7).Text = "Tema"
+        grupoTextbox(6).Text = "Sello"
         lblID.Text = ""
-
     End Sub
     Private Sub btnEliminar_Click(sender As Object, e As EventArgs) Handles btnEliminar.Click
-
         If lblID.Text = "" Then Exit Sub
-        If MsgBox("¿Eliminar entrada?", _
-                  MsgBoxStyle.OkCancel + MsgBoxStyle.DefaultButton2, _
+        If MsgBox("¿Eliminar entrada?",
+                  MsgBoxStyle.OkCancel + MsgBoxStyle.DefaultButton2,
                   "Eliminar entrada") = MsgBoxResult.Cancel Then Exit Sub
         Dim id As Integer
         id = CInt(lblID.Text)
@@ -165,10 +152,8 @@ Public Class fMain
             grupoTextbox(2).SelectAll()
             Exit Sub
         End If
-
         Dim id As Integer
         Dim nuevo As Boolean
-
         If lblID.Text = "" Then
             nuevo = True
             id = libro.Count
@@ -176,47 +161,32 @@ Public Class fMain
             nuevo = False
             id = CInt(lblID.Text)
         End If
-
-        Dim datos(0 To 9) As String
-        datos(0) = grupoTextbox(0).Text
-        datos(1) = grupoTextbox(1).Text
-        datos(2) = ExtraeNumeros(grupoTextbox(3).Text)
-        datos(3) = grupoTextbox(4).Text
-        datos(4) = grupoTextbox(2).Text
-        datos(5) = Month(Now).ToString
-        datos(6) = (Year(Now) - 2000).ToString
-        If grupoTextbox(5).Text = "Sello" Then
-            datos(7) = "-"
-        Else
-            datos(7) = grupoTextbox(5).Text
-        End If
-        If grupoTextbox(6).Text = "Tema" Then
-            datos(8) = "-"
-        Else
-            datos(8) = grupoTextbox(6).Text
-        End If
-        datos(9) = id.ToString
-
+        Dim datos(0 To 8) As String
+        datos(0) = grupoTextbox(0).Text                 'Título
+        datos(1) = grupoTextbox(1).Text                 'Autor
+        datos(2) = ExtraeNumeros(grupoTextbox(4).Text)  'ISBN
+        datos(3) = grupoTextbox(5).Text                 'Editorial
+        datos(4) = grupoTextbox(2).Text                 'PVP
+        datos(5) = Month(Now).ToString                  'Mes
+        datos(6) = (Year(Now) - 2000).ToString          'Año
+        datos(7) = grupoTextbox(6).Text                 'Sello
+        datos(8) = grupoTextbox(7).Text                 'Tema
+        If grupoTextbox(6).Text = "Sello" Then datos(7) = "-"
+        If grupoTextbox(6).Text = "Tema" Then datos(8) = "-"
         If Not datos(3).StartsWith("*") Then datos(3) = "*" & datos(3)
-
-        Dim item As New Libros(datos)
+        Dim item As New Libros(datos, id)
         Dim texto As String
-
         If nuevo Then
             texto = "Agregar libro nuevo" & vbCrLf & String.Join(" - ", item.array)
         Else
             texto = "Editar libro" & vbCrLf
             For i As Integer = 0 To 4
-                If item.array(i) <> libro(item.id).array(i) Then
-                    texto += vbCrLf & item.array(i) & "(NUEVO)" & vbTab & libro(item.id).array(i) & "(ORIGINAL)"
+                If item.array(i) <> libro(id).array(i) Then
+                    texto += vbCrLf & item.array(i) & "(NUEVO)" & vbTab & libro(id).array(i) & "(ORIGINAL)"
                 End If
             Next
         End If
-
-        If MsgBox(texto, MsgBoxStyle.OkCancel, "Confirmación") = MsgBoxResult.Cancel Then
-            Exit Sub
-        End If
-
+        If MsgBox(texto, MsgBoxStyle.OkCancel, "Confirmación") = MsgBoxResult.Cancel Then Return
         Subrutinas.EditaAgrega(item, nuevo)
         Subrutinas.GuardaCSV()
         txtInput.Text = item.isbn
@@ -224,19 +194,20 @@ Public Class fMain
     End Sub
     Public Sub PresentaDatos(item As Libros)
         Dim fecha As String = item.mes.ToString.Trim & "/" & item.año.ToString.Trim
-
         grupoTextbox(0).Text = item.titulo
         grupoTextbox(1).Text = item.autor
-        grupoTextbox(3).Text = FuncionesTexto.ExtraeNumeros(item.isbn)
-        grupoTextbox(4).Text = item.editorial
         grupoTextbox(2).Text = item.pvp.ToString
-        grupoTextbox(7).Text = fecha
-        grupoTextbox(6).Text = item.tema
-        grupoTextbox(5).Text = item.sello
+        grupoTextbox(3).Text = fecha
+        grupoTextbox(4).Text = FuncionesTexto.ExtraeNumeros(item.isbn)
+        grupoTextbox(5).Text = item.editorial
+        grupoTextbox(6).Text = item.sello
+        grupoTextbox(7).Text = item.tema
         lblID.Text = item.id.ToString
-
-        PortaPapeles(item.titulo, item.isbn, item.editorial, item.sello, item.pvp.ToString)
-
+        Try
+            PortaPapeles(item.titulo, item.isbn, item.editorial, item.sello, item.pvp.ToString)
+        Catch ex As Exception
+            MsgBox("Error al copiar al portapapeles" + vbCrLf + "Mensaje del error: " + ex.ToString)
+        End Try
     End Sub
     Private Sub EjecutaBusqueda()
         Dim busqueda As New List(Of Integer)
@@ -245,15 +216,12 @@ Public Class fMain
         Else
             busqueda = Subrutinas.Buscar(txtInput.Text)
         End If
-        If Not IsNothing(busqueda) Then
-            historial.Add(New EntradaHistorial(txtInput.Text, busqueda))
-        End If
         TxtClean()
         lvResultadosBusqueda.Items.Clear()
         txtInput.Focus()
         txtInput.SelectAll()
-
-        If busqueda Is Nothing Then Exit Sub
+        If IsNothing(busqueda) Then Return
+        historial.Add(New EntradaHistorial(txtInput.Text, busqueda))
         PresentaBusqueda(busqueda)
     End Sub
     Public Shared Sub PresentaBusqueda(items As List(Of Integer))
@@ -304,72 +272,50 @@ Public Class fMain
         End If
     End Sub
     Private Sub GeneraTextbox()
+        Dim nombre As String = "txtDetalles"
         For i = 0 To 7
-            Dim t As New TextBox
-            pnlPresentacion.Controls.Add(t)
-            t.Width = 365
-            t.Height = 25
-            t.Tag = i
-            t.TabIndex = i + 8
-            t.TabStop = True
-            t.BackColor = Color.LightGray
-            t.BorderStyle = BorderStyle.FixedSingle
-            t.Font = btnSave.Font
-            t.TextAlign = HorizontalAlignment.Center
-            Select Case i
-                Case 0
-                    t.Text = "Título"
-                    t.Location = New Point(3, 3)
-                Case 1
-                    t.Text = "Autor"
-                    t.Location = New Point(3, 27)
-                Case 2
-                    t.Text = "PVP"
-                    t.Location = New Point(3, 51)
-                    t.Width = 69
-                Case 3
-                    t.Text = "ISBN"
-                    t.Location = New Point(253, 51)
-                    t.Width = 115
-                Case 4
-                    t.Text = "Editorial"
-                    t.Location = New Point(3, 75)
-                    t.Width = 168
-                Case 5
-                    t.Text = "Sello"
-                    t.Location = New Point(170, 75)
-                    t.Width = 198
-                Case 6
-                    t.Text = "Tema"
-                    t.Location = New Point(3, 99)
-                Case 7
-                    t.Text = "Fecha"
-                    t.Location = New Point(130, 51)
-                    t.Width = 69
-                    t.TabStop = False
-            End Select
+            Dim t As TextBox
+            t = pnlDetalles.Controls(nombre + i.ToString)
             grupoTextbox.Add(t)
-            AddHandler t.KeyPress, AddressOf grupoTextbox_KeyPress
+            AddHandler t.KeyDown, AddressOf grupoTextbox_KeyDown
+            AddHandler t.GotFocus, AddressOf grupoTextbox_GotFocus
         Next
     End Sub
-    Private Sub grupoTextbox_KeyPress(sender As Object, e As KeyPressEventArgs)
-        Dim tagSender = sender.Tag
-
-        If tagSender = 7 Then   'Sale si es el textbox de fecha
-            e.Handled = True
-            Exit Sub
-        End If
-
-        If Asc(e.KeyChar) = 13 Then
-            If tagSender = 6 Then
-                btnSave.PerformClick()
-            Else
-                grupoTextbox(tagSender + 1).Focus()
-                grupoTextbox(tagSender + 1).SelectAll()
-            End If
-
-            e.Handled = True
-        End If
+    Private Sub grupoTextbox_GotFocus(sender As Object, e As EventArgs)
+        TryCast(sender, TextBox).SelectAll()
     End Sub
-    End Class
+    Private Sub grupoTextbox_KeyDown(sender As Object, e As KeyEventArgs)
+        Dim txtBox As TextBox = TryCast(sender, TextBox)
+        Dim tag As Integer = CInt(txtBox.Tag)
+        If tag = 3 Then
+            e.Handled = True
+            Return
+        End If
+        Select Case e.KeyCode
+            Case Keys.Enter
+                If tag = 7 Then
+                    btnSave.PerformClick()
+                ElseIf tag = 2 Then
+                    grupoTextbox(4).Focus()
+                Else
+                    grupoTextbox(tag + 1).Focus()
+                End If
+                e.Handled = True
+                e.SuppressKeyPress = True
+        End Select
+    End Sub
+    Private Sub txtDetalles3_MouseDown(sender As Object, e As MouseEventArgs) Handles txtDetalles3.MouseDown
+        'Agregar rutina para actualiar fecha al hacer CTRL-Click
+    End Sub
 
+    Private Sub btnActualizar_Click(sender As Object, e As EventArgs) Handles btnActualizar.Click
+        Dim ofd As New OpenFileDialog
+        ofd.Title = "Seleccione archivo de precios nuevos"
+        ofd.Filter = "Archivos CSV|*.csv"
+        ofd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
+        If ofd.ShowDialog <> Windows.Forms.DialogResult.OK Then Return
+        ActualizaPrecios(ofd.FileName)
+        'Dim frm As New frmActualizar(ofd.FileName)
+        'frm.ShowDialog()
+    End Sub
+End Class

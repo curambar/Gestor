@@ -164,6 +164,7 @@
     <None Include="img\64x64.ico" />
     <None Include="img\Cancel.png" />
     <None Include="img\cancel2.png" />
+    <None Include="Readme.md" />
     <None Include="Resources\1.gif" />
     <None Include="Resources\1%281%29.gif" />
     <None Include="Resources\gif.gif" />
