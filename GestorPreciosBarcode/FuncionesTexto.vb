@@ -5,7 +5,11 @@ Module FuncionesTexto
     ''' Devuelve la subcadena numérica. De "a12bcd4" devuelve "124"
     ''' </summary>
     Public Function ExtraeNumeros(texto As String) As String
-        If texto = "" Then Return ("")
+        Dim charToRemoveArray As Char()
+        charToRemoveArray = {"*"}
+        'If texto = "" Then Return ("")
+        'If texto.Contains("*") Then texto.Trim(charToRemoveArray)
+        texto.Trim(charToRemoveArray)
         Dim sbTexto As New StringBuilder(texto.Length)
         Dim ch As Char
         For Each ch In texto

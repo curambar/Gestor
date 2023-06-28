@@ -11,3 +11,16 @@ C:\Uppsala\Gestor Code\GestorPreciosBarcode\obj\Debug\Buscador.fMain.resources
 C:\Uppsala\Gestor Code\GestorPreciosBarcode\obj\Debug\Buscador.formHistorial.resources
 C:\Uppsala\Gestor Code\GestorPreciosBarcode\obj\Debug\Buscador.Resources.resources
 C:\Uppsala\Gestor Code\GestorPreciosBarcode\obj\Debug\BuscadorRebuild.vbproj.GenerateResource.Cache
+D:\Code\VisualBasic Proyectos\Buscador Uppsala\GestorPreciosBarcode\bin\Debug\Buscador.exe.config
+D:\Code\VisualBasic Proyectos\Buscador Uppsala\GestorPreciosBarcode\obj\Debug\BuscadorRebuild.vbproj.ResolveComReference.cache
+D:\Code\VisualBasic Proyectos\Buscador Uppsala\GestorPreciosBarcode\obj\Debug\Buscador.exe
+D:\Code\VisualBasic Proyectos\Buscador Uppsala\GestorPreciosBarcode\obj\Debug\Buscador.xml
+D:\Code\VisualBasic Proyectos\Buscador Uppsala\GestorPreciosBarcode\obj\Debug\Buscador.pdb
+D:\Code\VisualBasic Proyectos\Buscador Uppsala\GestorPreciosBarcode\bin\Debug\Buscador.exe
+D:\Code\VisualBasic Proyectos\Buscador Uppsala\GestorPreciosBarcode\bin\Debug\Buscador.pdb
+D:\Code\VisualBasic Proyectos\Buscador Uppsala\GestorPreciosBarcode\bin\Debug\Buscador.xml
+D:\Code\VisualBasic Proyectos\Buscador Uppsala\GestorPreciosBarcode\obj\Debug\BuscadorRebuild.vbprojResolveAssemblyReference.cache
+D:\Code\VisualBasic Proyectos\Buscador Uppsala\GestorPreciosBarcode\obj\Debug\Buscador.fMain.resources
+D:\Code\VisualBasic Proyectos\Buscador Uppsala\GestorPreciosBarcode\obj\Debug\Buscador.formHistorial.resources
+D:\Code\VisualBasic Proyectos\Buscador Uppsala\GestorPreciosBarcode\obj\Debug\Buscador.Resources.resources
+D:\Code\VisualBasic Proyectos\Buscador Uppsala\GestorPreciosBarcode\obj\Debug\BuscadorRebuild.vbproj.GenerateResource.Cache
