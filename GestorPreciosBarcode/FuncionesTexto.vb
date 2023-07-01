@@ -4,18 +4,17 @@ Module FuncionesTexto
     ''' <summary>
     ''' Devuelve la subcadena numérica. De "a12bcd4" devuelve "124"
     ''' </summary>
-    Public Function ExtraeNumeros(texto As String) As String
+    Public Function ExtraeNumeros(text As String) As String
         Dim charToRemoveArray As Char()
-        charToRemoveArray = {"*"}
-        'If texto = "" Then Return ("")
-        'If texto.Contains("*") Then texto.Trim(charToRemoveArray)
-        texto.Trim(charToRemoveArray)
-        Dim sbTexto As New StringBuilder(texto.Length)
+        Dim sbText As New StringBuilder(text.Length)
         Dim ch As Char
-        For Each ch In texto
-            If Char.IsDigit(ch) Then sbTexto.Append(ch)
+
+        charToRemoveArray = {"*"}
+        text.Trim(charToRemoveArray)
+        For Each ch In text
+            If Char.IsDigit(ch) Then sbText.Append(ch)
         Next
-        Return sbTexto.ToString
+        Return sbText.ToString
     End Function
     ''' <summary>
     ''' Copia los datos al portapapeles para pegar en la planilla de ventas agregando el caracter "`" al ISBN

@@ -169,6 +169,8 @@
     <None Include="Resources\1%281%29.gif" />
     <None Include="Resources\gif.gif" />
     <None Include="Resources\UppsalaGif.gif" />
+    <None Include="Resources\Uppsala.gif" />
+    <None Include="Resources\Uppsala2.gif" />
     <Content Include="Tasas.txt" />
   </ItemGroup>
   <ItemGroup>

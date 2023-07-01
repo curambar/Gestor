@@ -1,5 +1,5 @@
 ﻿Imports Buscador.Globales
-Imports Microsoft.Office.Interop
+'Imports Microsoft.Office.Interop
 Imports System.IO
 Imports Buscador
 Public Module Subrutinas
@@ -35,7 +35,7 @@ Public Module Subrutinas
                 MsgBox(text, vbOKOnly)
                 Return Nothing
             End If
-           
+
             listBooks.Add(New Libros(listString(i), i))
         Next
         Return listBooks
@@ -144,17 +144,23 @@ Public Module Subrutinas
     End Function
     Public Function PreparaListviewItem(item As Libros) As ListViewItem
         Dim aux(0 To 8) As String
+        Dim pvp As Integer = item.pvp
+        Dim pvpRecargado As Integer = Redondea(pvp * Globales.recargo, 100)
+        Dim pvpProyectado As Integer = Proyectar(item.mes, item.año - 10, pvpRecargado)
+        pvpProyectado = Redondea(pvpProyectado, 100)
         aux(0) = item.titulo
         aux(1) = item.autor
         aux(2) = item.isbn
         aux(3) = item.editorial
-        aux(4) = item.pvp.ToString
+        'aux(4) = item.pvp.ToString
+        aux(4) = pvpRecargado.ToString
         aux(5) = item.fecha
-        aux(6) = Proyectar(item.mes, item.año - 10, item.pvp).ToString
+        'aux(6) = Proyectar(item.mes, item.año - 10, item.pvp).ToString
+        aux(6) = pvpProyectado.ToString
         aux(7) = item.sello
         aux(8) = item.tema
         Try
-            PortaPapeles(item.titulo, item.isbn, item.editorial, item.sello, item.pvp.ToString)
+            PortaPapeles(item.titulo, item.isbn, item.editorial, item.sello, pvpRecargado.ToString)
         Catch ex As Exception
             MsgBox("Error al copiar al portapapeles" + vbCrLf + "Mensaje del error: " + ex.ToString)
         End Try
@@ -163,7 +169,7 @@ Public Module Subrutinas
         Return renglon
     End Function
     Public Sub AgregaItemAListview(renglon As ListViewItem, lview As ListView)
-        Dim backColor As Color = Color.FromArgb(192, 192, 192)
+        Dim backColor As Color = Color.FromArgb(32, 32, 32)
         If lview.Items.Count Mod 2 = 0 Then
             renglon.BackColor = backColor
             renglon.UseItemStyleForSubItems = True
@@ -278,7 +284,7 @@ Public Module Subrutinas
         Next
         Return autores
     End Function
-    Public Function Redondea(valor As Decimal, minimo As Integer)
+    Public Function Redondea(valor As Decimal, minimo As Integer) As Integer
         Return ((minimo * Math.Ceiling(valor / minimo)).ToString)
     End Function
     Public Sub MuestraHistorial()
@@ -382,9 +388,9 @@ Public Module Subrutinas
         Using parser As New FileIO.TextFieldParser(filePath, System.Text.Encoding.GetEncoding(1252))
             parser.TextFieldType = FileIO.FieldType.Delimited
             parser.SetDelimiters(";")
-            Dim linea As String()
+            'Dim linea As String()
             While Not parser.EndOfData
-                linea = parser.ReadFields
+                'linea = parser.ReadFields
                 listString.Add(parser.ReadFields)
             End While
         End Using
@@ -395,4 +401,110 @@ Public Module Subrutinas
             If libro(i).editorial.IndexOf(editorial) >= 0 Then libro.RemoveAt(i)
         Next
     End Sub
+    Public Function toRGB(h As Single, s As Single, v As Single) As Color
+        Dim r, g, b As Integer
+        Dim rh, gh, bh As Single
+        Dim C As Single
+        Dim X As Single
+        Dim m As Single
+
+        C = s * (1 - Math.Abs(2 * v - 1))
+        X = C * (1 - Math.Abs((h / 60) Mod 2 - 1))
+        m = v - (C / 2)
+
+        Select Case h
+            Case 0 To 59
+                rh = C
+                gh = X
+                bh = 0
+            Case 60 To 119
+                rh = X
+                gh = C
+                bh = 0
+            Case 120 To 179
+                rh = 0
+                gh = C
+                bh = X
+            Case 180 To 239
+                rh = 0
+                gh = X
+                bh = C
+            Case 240 To 299
+                rh = X
+                gh = 0
+                bh = C
+            Case 300 To 360
+                rh = C
+                gh = 0
+                bh = X
+        End Select
+        r = CInt(255 * (rh + m))
+        g = CInt(255 * (gh + m))
+        b = CInt(255 * (bh + m))
+        Return Color.FromArgb(r, g, b)
+    End Function
+    Public Function HSBtoRGB(h As Single, s As Single, v As Single) As Color
+        Dim r, g, b As Single
+        Dim hf, f, pv, qv, tv As Single
+        Dim i As Integer
+        If v <= 0 Then Return Color.FromArgb(0, 0, 0)
+        If s <= 0 Then Return Color.FromArgb(v, v, v)
+        hf = h / 60.0
+        i = Math.Floor(hf)
+        f = hf - i
+        PV = v * (1 - s)
+        qv = v * (1 - s * f)
+        tv = v * (1 - s * (1 - f))
+        Select Case i
+            Case 0
+                r = v
+                g = tv
+                b = pv
+
+            Case 1
+                r = qv
+                g = v
+                b = pv
+
+            Case 2
+                r = pv
+                g = v
+                b = tv
+
+            Case 3
+                r = pv
+                g = qv
+                b = v
+
+            Case 4
+                r = tv
+                g = pv
+                b = v
+
+            Case 5
+                r = v
+                g = pv
+                b = qv
+
+            Case 6
+                r = v
+                g = tv
+                b = pv
+
+            Case -1
+                r = v
+                g = pv
+                b = qv
+
+            Case Else
+                Return Color.Black
+        End Select
+        Return Color.FromArgb(Clamp(r * 255), Clamp(g * 255), Clamp(b * 255))
+    End Function
+
+    Private Function Clamp(n As Integer) As Integer
+        If n < 0 Then Return 0
+        If n > 255 Then Return 255
+        Return n
+    End Function
 End Module

@@ -22,7 +22,7 @@ Partial Class fMain
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(fMain))
+        Me.components = New System.ComponentModel.Container()
         Me.lvResultadosBusqueda = New System.Windows.Forms.ListView()
         Me.colTitulo = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.colAutor = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
@@ -45,6 +45,7 @@ Partial Class fMain
         Me.txtMes = New System.Windows.Forms.TextBox()
         Me.btnSave = New System.Windows.Forms.Button()
         Me.pnlDetalles = New System.Windows.Forms.Panel()
+        Me.txtPriceAdjusted = New System.Windows.Forms.TextBox()
         Me.txtDetalles7 = New System.Windows.Forms.TextBox()
         Me.txtDetalles6 = New System.Windows.Forms.TextBox()
         Me.txtDetalles5 = New System.Windows.Forms.TextBox()
@@ -60,19 +61,38 @@ Partial Class fMain
         Me.pnlBotones = New System.Windows.Forms.Panel()
         Me.btnActualizar = New System.Windows.Forms.Button()
         Me.pBar1 = New System.Windows.Forms.ProgressBar()
+        Me.panelInfo = New System.Windows.Forms.Panel()
+        Me.buttonSave = New System.Windows.Forms.Button()
+        Me.buttonDelete = New System.Windows.Forms.Button()
+        Me.buttonEdit = New System.Windows.Forms.Button()
+        Me.textInfo9 = New System.Windows.Forms.TextBox()
+        Me.textInfo8 = New System.Windows.Forms.TextBox()
+        Me.textInfo7 = New System.Windows.Forms.TextBox()
+        Me.textInfo6 = New System.Windows.Forms.TextBox()
+        Me.textInfo5 = New System.Windows.Forms.TextBox()
+        Me.textInfo4 = New System.Windows.Forms.TextBox()
+        Me.textInfo3 = New System.Windows.Forms.TextBox()
+        Me.textInfo2 = New System.Windows.Forms.TextBox()
+        Me.textInfo1 = New System.Windows.Forms.TextBox()
+        Me.textInfo0 = New System.Windows.Forms.TextBox()
+        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.pnlInput.SuspendLayout()
         Me.pnlProyectar.SuspendLayout()
         Me.pnlDetalles.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.pnlBotones.SuspendLayout()
+        Me.panelInfo.SuspendLayout()
         Me.SuspendLayout()
         '
         'lvResultadosBusqueda
         '
+        Me.lvResultadosBusqueda.BackColor = System.Drawing.Color.FromArgb(CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer), CType(CType(64, Byte), Integer))
         Me.lvResultadosBusqueda.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.colTitulo, Me.colAutor, Me.colISBN, Me.colEditorial, Me.colPVP, Me.colFecha, Me.colProyeccion})
         Me.lvResultadosBusqueda.Cursor = System.Windows.Forms.Cursors.Arrow
+        Me.lvResultadosBusqueda.ForeColor = System.Drawing.Color.White
         Me.lvResultadosBusqueda.FullRowSelect = True
         Me.lvResultadosBusqueda.GridLines = True
+        Me.lvResultadosBusqueda.HideSelection = False
         Me.lvResultadosBusqueda.Location = New System.Drawing.Point(6, 169)
         Me.lvResultadosBusqueda.Name = "lvResultadosBusqueda"
         Me.lvResultadosBusqueda.Size = New System.Drawing.Size(773, 206)
@@ -247,11 +267,13 @@ Partial Class fMain
         Me.btnSave.TabStop = False
         Me.btnSave.Text = "Guardar"
         Me.btnSave.UseVisualStyleBackColor = False
+        Me.btnSave.UseWaitCursor = True
         '
         'pnlDetalles
         '
         Me.pnlDetalles.BackColor = System.Drawing.Color.DimGray
         Me.pnlDetalles.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.pnlDetalles.Controls.Add(Me.txtPriceAdjusted)
         Me.pnlDetalles.Controls.Add(Me.txtDetalles7)
         Me.pnlDetalles.Controls.Add(Me.txtDetalles6)
         Me.pnlDetalles.Controls.Add(Me.txtDetalles5)
@@ -264,11 +286,29 @@ Partial Class fMain
         Me.pnlDetalles.Controls.Add(Me.lblID)
         Me.pnlDetalles.Controls.Add(Me.btnCancel)
         Me.pnlDetalles.Controls.Add(Me.btnSave)
-        Me.pnlDetalles.Location = New System.Drawing.Point(402, 8)
+        Me.pnlDetalles.Location = New System.Drawing.Point(20, 193)
         Me.pnlDetalles.Name = "pnlDetalles"
         Me.pnlDetalles.Size = New System.Drawing.Size(376, 155)
         Me.pnlDetalles.TabIndex = 0
         Me.pnlDetalles.Tag = "0"
+        Me.pnlDetalles.UseWaitCursor = True
+        Me.pnlDetalles.Visible = False
+        '
+        'txtPriceAdjusted
+        '
+        Me.txtPriceAdjusted.BackColor = System.Drawing.Color.LightGray
+        Me.txtPriceAdjusted.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.txtPriceAdjusted.Enabled = False
+        Me.txtPriceAdjusted.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!)
+        Me.txtPriceAdjusted.Location = New System.Drawing.Point(3, 51)
+        Me.txtPriceAdjusted.Name = "txtPriceAdjusted"
+        Me.txtPriceAdjusted.Size = New System.Drawing.Size(60, 25)
+        Me.txtPriceAdjusted.TabIndex = 17
+        Me.txtPriceAdjusted.TabStop = False
+        Me.txtPriceAdjusted.Tag = "2"
+        Me.txtPriceAdjusted.Text = "PVP"
+        Me.txtPriceAdjusted.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.txtPriceAdjusted.UseWaitCursor = True
         '
         'txtDetalles7
         '
@@ -282,6 +322,7 @@ Partial Class fMain
         Me.txtDetalles7.Tag = "7"
         Me.txtDetalles7.Text = "Tema"
         Me.txtDetalles7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.txtDetalles7.UseWaitCursor = True
         '
         'txtDetalles6
         '
@@ -295,6 +336,7 @@ Partial Class fMain
         Me.txtDetalles6.Tag = "6"
         Me.txtDetalles6.Text = "Sello"
         Me.txtDetalles6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.txtDetalles6.UseWaitCursor = True
         '
         'txtDetalles5
         '
@@ -308,6 +350,7 @@ Partial Class fMain
         Me.txtDetalles5.Tag = "5"
         Me.txtDetalles5.Text = "Editorial"
         Me.txtDetalles5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.txtDetalles5.UseWaitCursor = True
         '
         'txtDetalles4
         '
@@ -321,13 +364,14 @@ Partial Class fMain
         Me.txtDetalles4.Tag = "4"
         Me.txtDetalles4.Text = "ISBN"
         Me.txtDetalles4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.txtDetalles4.UseWaitCursor = True
         '
         'txtDetalles3
         '
         Me.txtDetalles3.BackColor = System.Drawing.Color.LightGray
         Me.txtDetalles3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtDetalles3.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!)
-        Me.txtDetalles3.Location = New System.Drawing.Point(130, 51)
+        Me.txtDetalles3.Location = New System.Drawing.Point(158, 51)
         Me.txtDetalles3.Name = "txtDetalles3"
         Me.txtDetalles3.Size = New System.Drawing.Size(69, 25)
         Me.txtDetalles3.TabIndex = 3
@@ -335,19 +379,21 @@ Partial Class fMain
         Me.txtDetalles3.Tag = "3"
         Me.txtDetalles3.Text = "Fecha"
         Me.txtDetalles3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.txtDetalles3.UseWaitCursor = True
         '
         'txtDetalles2
         '
         Me.txtDetalles2.BackColor = System.Drawing.Color.LightGray
         Me.txtDetalles2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
         Me.txtDetalles2.Font = New System.Drawing.Font("Segoe UI Semibold", 9.75!)
-        Me.txtDetalles2.Location = New System.Drawing.Point(3, 51)
+        Me.txtDetalles2.Location = New System.Drawing.Point(69, 51)
         Me.txtDetalles2.Name = "txtDetalles2"
-        Me.txtDetalles2.Size = New System.Drawing.Size(69, 25)
+        Me.txtDetalles2.Size = New System.Drawing.Size(83, 25)
         Me.txtDetalles2.TabIndex = 2
         Me.txtDetalles2.Tag = "2"
         Me.txtDetalles2.Text = "PVP"
         Me.txtDetalles2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.txtDetalles2.UseWaitCursor = True
         '
         'txtDetalles1
         '
@@ -361,6 +407,7 @@ Partial Class fMain
         Me.txtDetalles1.Tag = "1"
         Me.txtDetalles1.Text = "Autor"
         Me.txtDetalles1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.txtDetalles1.UseWaitCursor = True
         '
         'txtDetalles0
         '
@@ -374,6 +421,7 @@ Partial Class fMain
         Me.txtDetalles0.Tag = "0"
         Me.txtDetalles0.Text = "Título"
         Me.txtDetalles0.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.txtDetalles0.UseWaitCursor = True
         '
         'btnEliminar
         '
@@ -388,6 +436,7 @@ Partial Class fMain
         Me.btnEliminar.TabStop = False
         Me.btnEliminar.Text = "Eliminar"
         Me.btnEliminar.UseVisualStyleBackColor = False
+        Me.btnEliminar.UseWaitCursor = True
         '
         'lblID
         '
@@ -398,6 +447,7 @@ Partial Class fMain
         Me.lblID.TabIndex = 15
         Me.lblID.Text = "ID"
         Me.lblID.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.lblID.UseWaitCursor = True
         '
         'btnCancel
         '
@@ -412,11 +462,12 @@ Partial Class fMain
         Me.btnCancel.TabStop = False
         Me.btnCancel.Text = "Borrar"
         Me.btnCancel.UseVisualStyleBackColor = False
+        Me.btnCancel.UseWaitCursor = True
         '
         'PictureBox1
         '
-        Me.PictureBox1.BackColor = System.Drawing.Color.FromArgb(CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer), CType(CType(224, Byte), Integer))
-        Me.PictureBox1.Image = CType(resources.GetObject("PictureBox1.Image"), System.Drawing.Image)
+        Me.PictureBox1.BackColor = System.Drawing.Color.FromArgb(CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer), CType(CType(32, Byte), Integer))
+        Me.PictureBox1.Image = Global.Buscador.My.Resources.Resources.Uppsala2
         Me.PictureBox1.Location = New System.Drawing.Point(225, 64)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(171, 99)
@@ -456,12 +507,193 @@ Partial Class fMain
         Me.pBar1.Value = 1
         Me.pBar1.Visible = False
         '
+        'panelInfo
+        '
+        Me.panelInfo.BackColor = System.Drawing.Color.Black
+        Me.panelInfo.Controls.Add(Me.buttonSave)
+        Me.panelInfo.Controls.Add(Me.buttonDelete)
+        Me.panelInfo.Controls.Add(Me.buttonEdit)
+        Me.panelInfo.Controls.Add(Me.textInfo9)
+        Me.panelInfo.Controls.Add(Me.textInfo8)
+        Me.panelInfo.Controls.Add(Me.textInfo7)
+        Me.panelInfo.Controls.Add(Me.textInfo6)
+        Me.panelInfo.Controls.Add(Me.textInfo5)
+        Me.panelInfo.Controls.Add(Me.textInfo4)
+        Me.panelInfo.Controls.Add(Me.textInfo3)
+        Me.panelInfo.Controls.Add(Me.textInfo2)
+        Me.panelInfo.Controls.Add(Me.textInfo1)
+        Me.panelInfo.Controls.Add(Me.textInfo0)
+        Me.panelInfo.Location = New System.Drawing.Point(402, 8)
+        Me.panelInfo.Name = "panelInfo"
+        Me.panelInfo.Size = New System.Drawing.Size(376, 155)
+        Me.panelInfo.TabIndex = 19
+        '
+        'buttonSave
+        '
+        Me.buttonSave.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.buttonSave.BackColor = System.Drawing.Color.DimGray
+        Me.buttonSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.buttonSave.Font = New System.Drawing.Font("Segoe UI Semibold", 8.0!)
+        Me.buttonSave.ForeColor = System.Drawing.Color.LightGray
+        Me.buttonSave.Location = New System.Drawing.Point(288, 126)
+        Me.buttonSave.Name = "buttonSave"
+        Me.buttonSave.Size = New System.Drawing.Size(39, 25)
+        Me.buttonSave.TabIndex = 12
+        Me.buttonSave.TabStop = False
+        Me.buttonSave.Text = "Guardar"
+        Me.buttonSave.UseVisualStyleBackColor = False
+        '
+        'buttonDelete
+        '
+        Me.buttonDelete.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.buttonDelete.BackColor = System.Drawing.Color.DimGray
+        Me.buttonDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.buttonDelete.Font = New System.Drawing.Font("Segoe UI Semibold", 8.0!)
+        Me.buttonDelete.ForeColor = System.Drawing.Color.LightGray
+        Me.buttonDelete.Location = New System.Drawing.Point(243, 126)
+        Me.buttonDelete.Name = "buttonDelete"
+        Me.buttonDelete.Size = New System.Drawing.Size(39, 25)
+        Me.buttonDelete.TabIndex = 11
+        Me.buttonDelete.TabStop = False
+        Me.buttonDelete.Text = "Eliminar"
+        Me.buttonDelete.UseVisualStyleBackColor = False
+        '
+        'buttonEdit
+        '
+        Me.buttonEdit.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.buttonEdit.BackColor = System.Drawing.Color.DimGray
+        Me.buttonEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.buttonEdit.Font = New System.Drawing.Font("Segoe UI Semibold", 8.0!)
+        Me.buttonEdit.ForeColor = System.Drawing.Color.LightGray
+        Me.buttonEdit.Location = New System.Drawing.Point(198, 126)
+        Me.buttonEdit.Name = "buttonEdit"
+        Me.buttonEdit.Size = New System.Drawing.Size(39, 25)
+        Me.buttonEdit.TabIndex = 10
+        Me.buttonEdit.TabStop = False
+        Me.buttonEdit.Text = "Editar"
+        Me.buttonEdit.UseVisualStyleBackColor = False
+        '
+        'textInfo9
+        '
+        Me.textInfo9.BackColor = System.Drawing.Color.Black
+        Me.textInfo9.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.textInfo9.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.textInfo9.Location = New System.Drawing.Point(189, 104)
+        Me.textInfo9.Name = "textInfo9"
+        Me.textInfo9.Size = New System.Drawing.Size(188, 20)
+        Me.textInfo9.TabIndex = 9
+        Me.textInfo9.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'textInfo8
+        '
+        Me.textInfo8.BackColor = System.Drawing.Color.Black
+        Me.textInfo8.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.textInfo8.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.textInfo8.Location = New System.Drawing.Point(189, 78)
+        Me.textInfo8.Name = "textInfo8"
+        Me.textInfo8.Size = New System.Drawing.Size(188, 20)
+        Me.textInfo8.TabIndex = 8
+        Me.textInfo8.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'textInfo7
+        '
+        Me.textInfo7.BackColor = System.Drawing.Color.Black
+        Me.textInfo7.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.textInfo7.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.textInfo7.Location = New System.Drawing.Point(189, 52)
+        Me.textInfo7.Name = "textInfo7"
+        Me.textInfo7.Size = New System.Drawing.Size(188, 20)
+        Me.textInfo7.TabIndex = 7
+        Me.textInfo7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'textInfo6
+        '
+        Me.textInfo6.BackColor = System.Drawing.Color.Black
+        Me.textInfo6.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.textInfo6.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.textInfo6.Location = New System.Drawing.Point(189, 26)
+        Me.textInfo6.Name = "textInfo6"
+        Me.textInfo6.Size = New System.Drawing.Size(188, 20)
+        Me.textInfo6.TabIndex = 6
+        Me.textInfo6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'textInfo5
+        '
+        Me.textInfo5.BackColor = System.Drawing.Color.Black
+        Me.textInfo5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.textInfo5.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.textInfo5.Location = New System.Drawing.Point(188, 0)
+        Me.textInfo5.Name = "textInfo5"
+        Me.textInfo5.Size = New System.Drawing.Size(188, 20)
+        Me.textInfo5.TabIndex = 5
+        Me.textInfo5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'textInfo4
+        '
+        Me.textInfo4.BackColor = System.Drawing.Color.Black
+        Me.textInfo4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.textInfo4.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.textInfo4.Location = New System.Drawing.Point(0, 104)
+        Me.textInfo4.Name = "textInfo4"
+        Me.textInfo4.Size = New System.Drawing.Size(188, 20)
+        Me.textInfo4.TabIndex = 4
+        Me.textInfo4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'textInfo3
+        '
+        Me.textInfo3.BackColor = System.Drawing.Color.Black
+        Me.textInfo3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.textInfo3.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.textInfo3.Location = New System.Drawing.Point(0, 78)
+        Me.textInfo3.Name = "textInfo3"
+        Me.textInfo3.Size = New System.Drawing.Size(188, 20)
+        Me.textInfo3.TabIndex = 3
+        Me.textInfo3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'textInfo2
+        '
+        Me.textInfo2.BackColor = System.Drawing.Color.Black
+        Me.textInfo2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.textInfo2.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.textInfo2.Location = New System.Drawing.Point(0, 52)
+        Me.textInfo2.Name = "textInfo2"
+        Me.textInfo2.Size = New System.Drawing.Size(188, 20)
+        Me.textInfo2.TabIndex = 2
+        Me.textInfo2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'textInfo1
+        '
+        Me.textInfo1.BackColor = System.Drawing.Color.Black
+        Me.textInfo1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.textInfo1.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.textInfo1.Location = New System.Drawing.Point(0, 26)
+        Me.textInfo1.Name = "textInfo1"
+        Me.textInfo1.Size = New System.Drawing.Size(188, 20)
+        Me.textInfo1.TabIndex = 1
+        Me.textInfo1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'textInfo0
+        '
+        Me.textInfo0.BackColor = System.Drawing.Color.Black
+        Me.textInfo0.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
+        Me.textInfo0.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper
+        Me.textInfo0.Location = New System.Drawing.Point(0, 0)
+        Me.textInfo0.Name = "textInfo0"
+        Me.textInfo0.Size = New System.Drawing.Size(188, 20)
+        Me.textInfo0.TabIndex = 0
+        Me.textInfo0.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        '
+        'Timer1
+        '
+        Me.Timer1.Interval = 200
+        '
         'fMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.DarkGray
+        Me.BackColor = System.Drawing.Color.Red
         Me.ClientSize = New System.Drawing.Size(784, 397)
+        Me.Controls.Add(Me.panelInfo)
         Me.Controls.Add(Me.pBar1)
         Me.Controls.Add(Me.pnlBotones)
         Me.Controls.Add(Me.PictureBox1)
@@ -485,6 +717,8 @@ Partial Class fMain
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.pnlBotones.ResumeLayout(False)
         Me.pnlBotones.PerformLayout()
+        Me.panelInfo.ResumeLayout(False)
+        Me.panelInfo.PerformLayout()
         Me.ResumeLayout(False)
 
     End Sub
@@ -525,4 +759,20 @@ Partial Class fMain
     Friend WithEvents pnlBotones As System.Windows.Forms.Panel
     Friend WithEvents btnActualizar As System.Windows.Forms.Button
     Friend WithEvents pBar1 As ProgressBar
+    Friend WithEvents txtPriceAdjusted As TextBox
+    Friend WithEvents panelInfo As Panel
+    Friend WithEvents textInfo9 As TextBox
+    Friend WithEvents textInfo8 As TextBox
+    Friend WithEvents textInfo7 As TextBox
+    Friend WithEvents textInfo6 As TextBox
+    Friend WithEvents textInfo5 As TextBox
+    Friend WithEvents textInfo4 As TextBox
+    Friend WithEvents textInfo3 As TextBox
+    Friend WithEvents textInfo2 As TextBox
+    Friend WithEvents textInfo1 As TextBox
+    Friend WithEvents textInfo0 As TextBox
+    Friend WithEvents buttonSave As Button
+    Friend WithEvents buttonDelete As Button
+    Friend WithEvents buttonEdit As Button
+    Friend WithEvents Timer1 As Timer
 End Class

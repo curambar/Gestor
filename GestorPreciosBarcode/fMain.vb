@@ -5,9 +5,140 @@ Public Class fMain
         Subrutinas.CargaInicial()
         Me.CenterToScreen()
         Me.Icon = My.Resources.Uppsala
-        lblID.Text = ""
-        GeneraTextbox()
+        panelInfo.Tag = ""
+        pnlBotones.BackColor = darkColor
+        pnlInput.BackColor = darkColor
+        pnlProyectar.BackColor = darkColor
+
+        'GeneraTextbox()
+        GenerateInfoPanel()
+        Timer1.Start()
     End Sub
+    Public Shared Function GetChildControls(Of TControl As Control)(ByVal control As Control) As IEnumerable(Of TControl)
+        Dim children = If(control.Controls IsNot Nothing, control.Controls.OfType(Of TControl)(), Enumerable.Empty(Of TControl)())
+        Return children.SelectMany(Function(c) CType(GetChildControls(Of TControl)(c), IEnumerable(Of TControl))).Concat(children)
+    End Function
+    Public Function GetTextBoxes(TControl As Control) As List(Of TextBox)
+        Dim textBoxes = New List(Of TextBox)
+        For Each c As Control In TControl.Controls
+            If TypeOf c Is TextBox Then
+                textBoxes.Add(c)
+            End If
+        Next
+        Return textBoxes
+    End Function
+    Private Sub GenerateInfoPanel()
+        Dim fontFamily As New FontFamily("Arial")
+        Dim bigFont As New Font(fontFamily, 32, FontStyle.Bold, GraphicsUnit.Pixel)
+        Dim mediumFont As New Font(fontFamily, 16, FontStyle.Bold, GraphicsUnit.Pixel)
+        Dim smallFont As New Font(fontFamily, 10, FontStyle.Bold, GraphicsUnit.Pixel)
+        Dim buttonList As New List(Of Button)
+        Dim textList As List(Of TextBox) = GetTextBoxes(panelInfo)
+
+        With buttonEdit
+            .Text = "Editar"
+            .Location = New Point(189, 130)
+        End With
+        With buttonDelete
+            .Text = "Eliminar"
+            .Location = New Point(251, 130)
+        End With
+        With buttonSave
+            .Text = "Guardar"
+            .Location = New Point(313, 130)
+        End With
+        buttonList.Add(buttonEdit)
+        buttonList.Add(buttonDelete)
+        buttonList.Add(buttonSave)
+        panelInfo.BackColor = Color.FromArgb(32, 32, 32)
+
+        For i As Integer = 0 To 2
+            With buttonList(i)
+                .AutoSize = False
+                .Height = 25
+                .Width = 62
+                .BackColor = Color.FromArgb(64, 64, 64)
+                .ForeColor = Color.White
+                .FlatStyle = FlatStyle.Flat
+                .FlatAppearance.BorderColor = .BackColor
+            End With
+        Next
+
+        For i As Integer = 0 To textList.Count - 1
+            AddHandler textList(i).TextChanged, AddressOf textInfo_TextChanged
+            With textList(i)
+                .AutoSize = False
+                .BackColor = Color.FromArgb(32, 32, 32)
+                .ForeColor = Color.FromArgb(192, 192, 192)
+                .BorderStyle = BorderStyle.None
+                .CharacterCasing = CharacterCasing.Upper
+                .TextAlign = HorizontalAlignment.Center
+                .Width = 188
+                .Height = 25
+                .Font = mediumFont
+                .ReadOnly = True
+
+
+                Select Case i
+                    Case 0
+                        .Tag = "Title"
+                        .Height = 40
+                        .Width = 376
+                        .Location = New Point(0, 0)
+                        .Text = "Titulo"
+                        .Font = bigFont
+                        .ForeColor = Color.FromArgb(192, 192, 0)
+                    Case 1
+                        .Tag = "Author"
+                        .Location = New Point(0, 40)
+                        .Text = "autor"
+                    Case 2
+                        .Tag = "Publisher"
+                        .Location = New Point(189, 40)
+                        .Text = "editorial"
+                    Case 3
+                        .Tag = "ISBN"
+                        .Location = New Point(0, 65)
+                        .Text = "isbn"
+                    Case 4
+                        .Tag = "Editorial"
+                        .Location = New Point(189, 65)
+                        .Text = "sello"
+                    Case 5
+                        .Tag = "PriceAdjusted"
+                        .Height = 40
+                        .Font = bigFont
+                        .ForeColor = Color.Cyan
+                        .Location = New Point(0, 90)
+                        .Text = "PVP"
+                    Case 6
+                        .Tag = "PriceBase"
+                        .Location = New Point(189, 90)
+                        .Height = 20
+                        .ForeColor = Color.SpringGreen
+                        .Text = "PVP base"
+                    Case 7
+                        .Tag = "DateAndProjected"
+                        .Location = New Point(189, 110)
+                        .Height = 20
+                        .ForeColor = Color.DarkSalmon
+                        .Text = "Fecha + proyectado"
+                    Case 8
+                        .Tag = "Description"
+                        .Location = New Point(0, 130)
+                        .Height = 25
+                        .Width = 185
+                        .Text = "Tema"
+                    Case 9
+
+                    Case Else
+                End Select
+            End With
+        Next
+        InfoClean()
+
+    End Sub
+
     Private Sub sProyectar()
         Dim mes As Byte
         Dim ano As Byte
@@ -34,7 +165,7 @@ Public Class fMain
             Exit Sub
         End If
         LimpiaProyector()
-        texto = Redondea(Proyectar(mes, ano - 10, valor), 50).ToString
+        texto = Redondea(Proyectar(mes, ano - 10, valor), 100).ToString
         lblProy.Text = texto
     End Sub
     Private Sub LimpiaProyector()
@@ -104,7 +235,8 @@ Public Class fMain
         If My.Computer.Keyboard.CtrlKeyDown Then Exit Sub
         Dim renglon As Integer = lvResultadosBusqueda.FocusedItem.Index    'El indice del Listview seleccionado
         Dim id As Integer = Convert.ToInt32(lvResultadosBusqueda.Items(renglon).Name)   'El indice del libro seleccionado
-        PresentaDatos(libro(id))
+        'PresentaDatos(libro(id))
+        PopulateInfo(libro(id))
     End Sub
     Private Sub btnBuscar_Click(sender As Object, e As EventArgs) Handles btnBuscar.Click
         EjecutaBusqueda()
@@ -120,6 +252,19 @@ Public Class fMain
         grupoTextbox(0).Focus()
         grupoTextbox(0).SelectAll()
     End Sub
+    Public Sub InfoClean()
+        Dim textboxList As List(Of TextBox) = GetTextBoxes(panelInfo)
+        textboxList(0).Text = "titulo"
+        textboxList(1).Text = "autor"
+        textboxList(2).Text = "editorial"
+        textboxList(3).Text = "isbn"
+        textboxList(4).Text = "sello"
+        textboxList(5).Text = "pvp"
+        textboxList(6).Text = "descuento"
+        textboxList(7).Text = "fecha"
+        textboxList(8).Text = "tema"
+
+    End Sub
     Public Sub TxtClean()
         grupoTextbox(0).Text = "Título"
         grupoTextbox(1).Text = "Autor"
@@ -129,15 +274,15 @@ Public Class fMain
         grupoTextbox(5).Text = "Editorial"
         grupoTextbox(7).Text = "Tema"
         grupoTextbox(6).Text = "Sello"
-        lblID.Text = ""
+        panelInfo.Tag = ""
     End Sub
     Private Sub btnEliminar_Click(sender As Object, e As EventArgs) Handles btnEliminar.Click
-        If lblID.Text = "" Then Exit Sub
+        If panelInfo.Tag = "" Then Exit Sub
         If MsgBox("¿Eliminar entrada?",
                   MsgBoxStyle.OkCancel + MsgBoxStyle.DefaultButton2,
                   "Eliminar entrada") = MsgBoxResult.Cancel Then Exit Sub
         Dim id As Integer
-        id = CInt(lblID.Text)
+        id = CInt(panelInfo.Tag)
         Subrutinas.EliminaLibro(id)
         Subrutinas.GuardaCSV()
         lvResultadosBusqueda.Items.Clear()
@@ -154,12 +299,12 @@ Public Class fMain
         End If
         Dim id As Integer
         Dim nuevo As Boolean
-        If lblID.Text = "" Then
+        If panelInfo.Tag = "" Then
             nuevo = True
             id = libro.Count
         Else
             nuevo = False
-            id = CInt(lblID.Text)
+            id = CInt(panelInfo.Tag)
         End If
         Dim datos(0 To 8) As String
         datos(0) = grupoTextbox(0).Text                 'Título
@@ -192,36 +337,77 @@ Public Class fMain
         txtInput.Text = item.isbn
         btnBuscar.PerformClick()
     End Sub
-    Public Sub PresentaDatos(item As Libros)
-        Dim fecha As String = item.mes.ToString.Trim & "/" & item.año.ToString.Trim
-        grupoTextbox(0).Text = item.titulo
-        grupoTextbox(1).Text = item.autor
-        grupoTextbox(2).Text = item.pvp.ToString
-        grupoTextbox(3).Text = fecha
-        grupoTextbox(4).Text = FuncionesTexto.ExtraeNumeros(item.isbn)
-        grupoTextbox(5).Text = item.editorial
-        grupoTextbox(6).Text = item.sello
-        grupoTextbox(7).Text = item.tema
-        lblID.Text = item.id.ToString
+    Public Sub PopulateInfo(item As Libros)
+        Dim culture As New System.Globalization.CultureInfo("es-ES", False)
+        Dim mes As Integer = CInt(item.mes)
+        Dim año As Integer = CInt(item.año)
+        Dim fecha As String = item.mes.Trim & "/" & item.año.Trim
+        Dim priceBase As Integer = Redondea(item.pvp, 100)
+        Dim priceAdjusted As Integer = Subrutinas.Redondea(priceBase * Globales.recargo, 100)
+        Dim priceProjected As Integer = Redondea(Proyectar(mes, año - 10, priceAdjusted), 100)
+        Dim pBaseText As String = priceBase.ToString("##,#", culture.NumberFormat)
+        Dim pAdjustedText As String = priceAdjusted.ToString("##,#", culture.NumberFormat)
+        Dim pProjectedText As String = priceProjected.ToString("##,#", culture.NumberFormat)
+        Dim tboxDateText As String = fecha + " (" + pProjectedText + ")"
+        Dim tboxList As List(Of TextBox) = GetTextBoxes(panelInfo)
+
+
+        tboxList(0).Text = item.titulo
+        tboxList(1).Text = item.autor
+        tboxList(2).Text = item.editorial
+        tboxList(3).Text = item.isbn
+        tboxList(4).Text = item.sello
+        tboxList(5).Text = pAdjustedText
+        tboxList(6).Text = pBaseText
+        tboxList(7).Text = tboxDateText
+        tboxList(8).Text = item.tema
+
+        panelInfo.Tag = item.id.ToString
         Try
-            PortaPapeles(item.titulo, item.isbn, item.editorial, item.sello, item.pvp.ToString)
+            PortaPapeles(item.titulo, item.isbn, item.editorial, item.sello, priceAdjusted.ToString)
         Catch ex As Exception
             MsgBox("Error al copiar al portapapeles" + vbCrLf + "Mensaje del error: " + ex.ToString)
         End Try
     End Sub
+    'Public Sub PresentaDatos(item As Libros)
+    '    Dim fecha As String = item.mes.ToString.Trim & "/" & item.año.ToString.Trim
+    '    Dim pvpBase As Integer = Redondea(item.pvp, 100)
+    '    Dim pvpRecargado As Integer = Subrutinas.Redondea(pvpBase * Globales.recargo, 100)
+    '    Dim pvp As String = pvpRecargado.ToString
+    '    'pvp = pvp & " (" & item.pvp.ToString & ")"
+    '    grupoTextbox(0).Text = item.titulo
+    '    grupoTextbox(1).Text = item.autor
+    '    grupoTextbox(2).Text = pvpBase.ToString
+    '    txtPriceAdjusted.Text = pvpRecargado.ToString
+    '    grupoTextbox(3).Text = fecha
+    '    grupoTextbox(4).Text = FuncionesTexto.ExtraeNumeros(item.isbn)
+    '    grupoTextbox(5).Text = item.editorial
+    '    grupoTextbox(6).Text = item.sello
+    '    grupoTextbox(7).Text = item.tema
+    '    panelInfo.Tag = item.id.ToString
+    '    Try
+    '        PortaPapeles(item.titulo, item.isbn, item.editorial, item.sello, pvpRecargado.ToString)
+    '    Catch ex As Exception
+    '        MsgBox("Error al copiar al portapapeles" + vbCrLf + "Mensaje del error: " + ex.ToString)
+    '    End Try
+    'End Sub
     Private Sub EjecutaBusqueda()
         Dim busqueda As New List(Of Integer)
-        If txtInput.Text.IndexOf(":") >= 0 Then
-            busqueda = Subrutinas.BusquedaPorCampos(txtInput.Text)
+        Dim texto As String = txtInput.Text
+        If texto.First = "*"c Then texto = texto.Replace("*", "")
+
+        If texto.IndexOf(":") >= 0 Then
+            busqueda = Subrutinas.BusquedaPorCampos(texto)
         Else
-            busqueda = Subrutinas.Buscar(txtInput.Text)
+            busqueda = Subrutinas.Buscar(texto)
         End If
-        TxtClean()
+        InfoClean()
+        'TxtClean()
         lvResultadosBusqueda.Items.Clear()
         txtInput.Focus()
         txtInput.SelectAll()
         If IsNothing(busqueda) Then Return
-        historial.Add(New EntradaHistorial(txtInput.Text, busqueda))
+        historial.Add(New EntradaHistorial(texto, busqueda))
         PresentaBusqueda(busqueda)
     End Sub
     Public Shared Sub PresentaBusqueda(items As List(Of Integer))
@@ -229,7 +415,8 @@ Public Class fMain
             Dim renglon As New ListViewItem
             renglon = Subrutinas.PreparaListviewItem(libro(f))
             Subrutinas.AgregaItemAListview(renglon, fMain.lvResultadosBusqueda)
-            fMain.PresentaDatos(libro(f))
+            'fMain.PresentaDatos(libro(f))
+            fMain.PopulateInfo(libro(f))
         Next
     End Sub
     Private Sub fGestor_KeyDown(sender As Object, e As KeyEventArgs) Handles Me.KeyDown
@@ -271,42 +458,39 @@ Public Class fMain
             e.Handled = True
         End If
     End Sub
-    Private Sub GeneraTextbox()
-        Dim nombre As String = "txtDetalles"
-        For i = 0 To 7
-            Dim t As TextBox
-            t = pnlDetalles.Controls(nombre + i.ToString)
-            grupoTextbox.Add(t)
-            AddHandler t.KeyDown, AddressOf grupoTextbox_KeyDown
-            AddHandler t.GotFocus, AddressOf grupoTextbox_GotFocus
-        Next
-    End Sub
-    Private Sub grupoTextbox_GotFocus(sender As Object, e As EventArgs)
-        TryCast(sender, TextBox).SelectAll()
-    End Sub
-    Private Sub grupoTextbox_KeyDown(sender As Object, e As KeyEventArgs)
-        Dim txtBox As TextBox = TryCast(sender, TextBox)
-        Dim tag As Integer = CInt(txtBox.Tag)
-        If tag = 3 Then
-            e.Handled = True
-            Return
-        End If
-        Select Case e.KeyCode
-            Case Keys.Enter
-                If tag = 7 Then
-                    btnSave.PerformClick()
-                ElseIf tag = 2 Then
-                    grupoTextbox(4).Focus()
-                Else
-                    grupoTextbox(tag + 1).Focus()
-                End If
-                e.Handled = True
-                e.SuppressKeyPress = True
-        End Select
-    End Sub
-    Private Sub txtDetalles3_MouseDown(sender As Object, e As MouseEventArgs) Handles txtDetalles3.MouseDown
-        'Agregar rutina para actualiar fecha al hacer CTRL-Click
-    End Sub
+    'Private Sub GeneraTextbox()
+    '    Dim nombre As String = "txtDetalles"
+    '    For i = 0 To 7
+    '        Dim t As TextBox
+    '        t = pnlDetalles.Controls(nombre + i.ToString)
+    '        grupoTextbox.Add(t)
+    '        AddHandler t.KeyDown, AddressOf grupoTextbox_KeyDown
+    '        AddHandler t.GotFocus, AddressOf grupoTextbox_GotFocus
+    '    Next
+    'End Sub
+    'Private Sub grupoTextbox_GotFocus(sender As Object, e As EventArgs)
+    '    TryCast(sender, TextBox).SelectAll()
+    'End Sub
+    'Private Sub grupoTextbox_KeyDown(sender As Object, e As KeyEventArgs)
+    '    Dim txtBox As TextBox = TryCast(sender, TextBox)
+    '    Dim tag As Integer = CInt(txtBox.Tag)
+    '    If tag = 3 Then
+    '        e.Handled = True
+    '        Return
+    '    End If
+    '    Select Case e.KeyCode
+    '        Case Keys.Enter
+    '            If tag = 7 Then
+    '                btnSave.PerformClick()
+    '            ElseIf tag = 2 Then
+    '                grupoTextbox(4).Focus()
+    '            Else
+    '                grupoTextbox(tag + 1).Focus()
+    '            End If
+    '            e.Handled = True
+    '            e.SuppressKeyPress = True
+    '    End Select
+    'End Sub
 
     Private Sub btnActualizar_Click(sender As Object, e As EventArgs) Handles btnActualizar.Click
         Dim ofd As New OpenFileDialog
@@ -319,5 +503,37 @@ Public Class fMain
         'frm.ShowDialog()
     End Sub
 
+    Private Sub DynamicFontSize(ByRef tBox As TextBox)
 
+        If tBox.Text.Length = 0 Then
+            Return
+        End If
+
+        Dim height As Single = tBox.Height * 0.9F
+        Dim width As Single = tBox.Width * 0.9F
+
+        tBox.SuspendLayout()
+
+        Dim tryFont As Font = tBox.Font
+        Dim tempSize As Size = TextRenderer.MeasureText(tBox.Text, tryFont)
+
+        Dim heightRatio As Single = height / tempSize.Height
+        Dim widthRatio As Single = width / tempSize.Width
+        Dim minRatio As Single = Math.Min(widthRatio, heightRatio)
+        Dim fontSize As Single = Math.Max(8, tryFont.Size * Math.Min(widthRatio, heightRatio))
+        tryFont = New Font(tryFont.FontFamily, fontSize, tryFont.Style)
+
+        tBox.Font = tryFont
+        tBox.ResumeLayout()
+    End Sub
+
+    Private Sub textInfo_TextChanged(sender As Object, e As EventArgs)
+        DynamicFontSize(TryCast(sender, TextBox))
+    End Sub
+
+    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
+        hue += 5
+        If hue > 360 Then hue -= 360
+        Me.BackColor = toRGB(hue, 0.5, 0.5)
+    End Sub
 End Class

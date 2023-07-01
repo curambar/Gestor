@@ -19,8 +19,8 @@ D:\Code\VisualBasic Proyectos\Buscador Uppsala\GestorPreciosBarcode\obj\Debug\Bu
 D:\Code\VisualBasic Proyectos\Buscador Uppsala\GestorPreciosBarcode\bin\Debug\Buscador.exe
 D:\Code\VisualBasic Proyectos\Buscador Uppsala\GestorPreciosBarcode\bin\Debug\Buscador.pdb
 D:\Code\VisualBasic Proyectos\Buscador Uppsala\GestorPreciosBarcode\bin\Debug\Buscador.xml
-D:\Code\VisualBasic Proyectos\Buscador Uppsala\GestorPreciosBarcode\obj\Debug\BuscadorRebuild.vbprojResolveAssemblyReference.cache
 D:\Code\VisualBasic Proyectos\Buscador Uppsala\GestorPreciosBarcode\obj\Debug\Buscador.fMain.resources
 D:\Code\VisualBasic Proyectos\Buscador Uppsala\GestorPreciosBarcode\obj\Debug\Buscador.formHistorial.resources
 D:\Code\VisualBasic Proyectos\Buscador Uppsala\GestorPreciosBarcode\obj\Debug\Buscador.Resources.resources
 D:\Code\VisualBasic Proyectos\Buscador Uppsala\GestorPreciosBarcode\obj\Debug\BuscadorRebuild.vbproj.GenerateResource.Cache
+D:\Code\VisualBasic Proyectos\Buscador Uppsala\GestorPreciosBarcode\obj\Debug\BuscadorRebuild.vbprojAssemblyReference.cache

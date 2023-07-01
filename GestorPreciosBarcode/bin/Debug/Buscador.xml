@@ -6,25 +6,6 @@ Buscador
 </name>
 </assembly>
 <members>
-<member name="M:Buscador.FuncionesTexto.ExtraeNumeros(System.String)">
- <summary>
- Devuelve la subcadena numérica. De "a12bcd4" devuelve "124"
- </summary>
-</member>
-<member name="M:Buscador.FuncionesTexto.PortaPapeles(System.String,System.String,System.String,System.String,System.String)">
- <summary>
- Copia los datos al portapapeles para pegar en la planilla de ventas agregando el caracter "`" al ISBN
- </summary>
- <remarks></remarks>
-</member>
-<member name="M:Buscador.FuncionesTexto.QuitaAcentos(System.String)">
- <summary>
- Devuelve la subcadena alfanumérica estándar en mayúsculas. Por ejemplo, "áéíóú" devuelve "AEIOU"
- </summary>
- <param name="texto"></param>
- <returns></returns>
- <remarks></remarks>
-</member>
 <member name="T:Buscador.My.Resources.Resources">
 <summary>
   A strongly-typed resource class, for looking up localized strings, etc.
@@ -56,10 +37,39 @@ Buscador
   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
 </summary>
 </member>
+<member name="P:Buscador.My.Resources.Resources.Uppsala1">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
+<member name="P:Buscador.My.Resources.Resources.Uppsala2">
+<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member>
 <member name="P:Buscador.My.Resources.Resources.UppsalaGif">
 <summary>
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
+</member>
+<member name="M:Buscador.FuncionesTexto.ExtraeNumeros(System.String)">
+ <summary>
+ Devuelve la subcadena numérica. De "a12bcd4" devuelve "124"
+ </summary>
+</member>
+<member name="M:Buscador.FuncionesTexto.PortaPapeles(System.String,System.String,System.String,System.String,System.String)">
+ <summary>
+ Copia los datos al portapapeles para pegar en la planilla de ventas agregando el caracter "`" al ISBN
+ </summary>
+ <remarks></remarks>
+</member>
+<member name="M:Buscador.FuncionesTexto.QuitaAcentos(System.String)">
+ <summary>
+ Devuelve la subcadena alfanumérica estándar en mayúsculas. Por ejemplo, "áéíóú" devuelve "AEIOU"
+ </summary>
+ <param name="texto"></param>
+ <returns></returns>
+ <remarks></remarks>
 </member>
 <member name="M:Buscador.Subrutinas.ActualizaPrecios(System.String)">
  <summary>
