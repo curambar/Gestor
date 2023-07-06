@@ -32,7 +32,7 @@ Partial Class fMain
         Me.colFecha = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.colProyeccion = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.pnlInput = New System.Windows.Forms.Panel()
-        Me.btnBuscar = New System.Windows.Forms.Button()
+        Me.buttonSearch = New System.Windows.Forms.Button()
         Me.txtInput = New System.Windows.Forms.TextBox()
         Me.pnlProyectar = New System.Windows.Forms.Panel()
         Me.btnProyectar = New System.Windows.Forms.Button()
@@ -136,23 +136,23 @@ Partial Class fMain
         '
         Me.pnlInput.BackColor = System.Drawing.Color.DimGray
         Me.pnlInput.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle
-        Me.pnlInput.Controls.Add(Me.btnBuscar)
+        Me.pnlInput.Controls.Add(Me.buttonSearch)
         Me.pnlInput.Controls.Add(Me.txtInput)
         Me.pnlInput.Location = New System.Drawing.Point(6, 8)
         Me.pnlInput.Name = "pnlInput"
         Me.pnlInput.Size = New System.Drawing.Size(213, 50)
         Me.pnlInput.TabIndex = 4
         '
-        'btnBuscar
+        'buttonSearch
         '
-        Me.btnBuscar.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.btnBuscar.Location = New System.Drawing.Point(144, 11)
-        Me.btnBuscar.Name = "btnBuscar"
-        Me.btnBuscar.Size = New System.Drawing.Size(60, 24)
-        Me.btnBuscar.TabIndex = 17
-        Me.btnBuscar.TabStop = False
-        Me.btnBuscar.Text = "Buscar"
-        Me.btnBuscar.UseVisualStyleBackColor = True
+        Me.buttonSearch.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.25!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.buttonSearch.Location = New System.Drawing.Point(144, 11)
+        Me.buttonSearch.Name = "buttonSearch"
+        Me.buttonSearch.Size = New System.Drawing.Size(60, 24)
+        Me.buttonSearch.TabIndex = 17
+        Me.buttonSearch.TabStop = False
+        Me.buttonSearch.Text = "Buscar"
+        Me.buttonSearch.UseVisualStyleBackColor = True
         '
         'txtInput
         '
@@ -535,9 +535,9 @@ Partial Class fMain
         Me.buttonSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.buttonSave.Font = New System.Drawing.Font("Segoe UI Semibold", 8.0!)
         Me.buttonSave.ForeColor = System.Drawing.Color.LightGray
-        Me.buttonSave.Location = New System.Drawing.Point(288, 126)
+        Me.buttonSave.Location = New System.Drawing.Point(313, 130)
         Me.buttonSave.Name = "buttonSave"
-        Me.buttonSave.Size = New System.Drawing.Size(39, 25)
+        Me.buttonSave.Size = New System.Drawing.Size(62, 25)
         Me.buttonSave.TabIndex = 12
         Me.buttonSave.TabStop = False
         Me.buttonSave.Text = "Guardar"
@@ -550,9 +550,9 @@ Partial Class fMain
         Me.buttonDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.buttonDelete.Font = New System.Drawing.Font("Segoe UI Semibold", 8.0!)
         Me.buttonDelete.ForeColor = System.Drawing.Color.LightGray
-        Me.buttonDelete.Location = New System.Drawing.Point(243, 126)
+        Me.buttonDelete.Location = New System.Drawing.Point(251, 130)
         Me.buttonDelete.Name = "buttonDelete"
-        Me.buttonDelete.Size = New System.Drawing.Size(39, 25)
+        Me.buttonDelete.Size = New System.Drawing.Size(62, 25)
         Me.buttonDelete.TabIndex = 11
         Me.buttonDelete.TabStop = False
         Me.buttonDelete.Text = "Eliminar"
@@ -565,9 +565,9 @@ Partial Class fMain
         Me.buttonEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat
         Me.buttonEdit.Font = New System.Drawing.Font("Segoe UI Semibold", 8.0!)
         Me.buttonEdit.ForeColor = System.Drawing.Color.LightGray
-        Me.buttonEdit.Location = New System.Drawing.Point(198, 126)
+        Me.buttonEdit.Location = New System.Drawing.Point(189, 130)
         Me.buttonEdit.Name = "buttonEdit"
-        Me.buttonEdit.Size = New System.Drawing.Size(39, 25)
+        Me.buttonEdit.Size = New System.Drawing.Size(62, 25)
         Me.buttonEdit.TabIndex = 10
         Me.buttonEdit.TabStop = False
         Me.buttonEdit.Text = "Editar"
@@ -691,7 +691,7 @@ Partial Class fMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.BackColor = System.Drawing.Color.Red
+        Me.BackColor = System.Drawing.Color.FromArgb(CType(CType(96, Byte), Integer), CType(CType(96, Byte), Integer), CType(CType(96, Byte), Integer))
         Me.ClientSize = New System.Drawing.Size(784, 397)
         Me.Controls.Add(Me.panelInfo)
         Me.Controls.Add(Me.pBar1)
@@ -724,7 +724,7 @@ Partial Class fMain
     End Sub
     Friend WithEvents lvResultadosBusqueda As System.Windows.Forms.ListView
     Friend WithEvents pnlInput As System.Windows.Forms.Panel
-    Friend WithEvents btnBuscar As System.Windows.Forms.Button
+    Friend WithEvents buttonSearch As System.Windows.Forms.Button
     Friend WithEvents txtInput As System.Windows.Forms.TextBox
     Friend WithEvents pnlProyectar As System.Windows.Forms.Panel
     Friend WithEvents btnProyectar As System.Windows.Forms.Button

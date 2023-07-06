@@ -17,6 +17,7 @@ Public Module Subrutinas
             End If
         End Sub
     End Class
+
     Public Sub CargaInicial()
         libro.Clear()
         libro = LoadBooks("Precios.csv")
@@ -169,13 +170,88 @@ Public Module Subrutinas
         Return renglon
     End Function
     Public Sub AgregaItemAListview(renglon As ListViewItem, lview As ListView)
-        Dim backColor As Color = Color.FromArgb(32, 32, 32)
-        If lview.Items.Count Mod 2 = 0 Then
-            renglon.BackColor = backColor
-            renglon.UseItemStyleForSubItems = True
-        End If
+        Dim backColor(2) As Color
+        backColor(0) = Color.FromArgb(32, 32, 32)
+        backColor(1) = Color.FromArgb(64, 64, 64)
+        renglon.BackColor = backColor(lview.Items.Count Mod 2)
+        'If lview.Items.Count Mod 2 = 0 Then
+        '    renglon.BackColor = backColor
+        '    renglon.UseItemStyleForSubItems = True
+        'End If
         lview.Items.Add(renglon)
     End Sub
+    Public Function Project(setDate As Date, value As Integer) As Integer
+        Dim stageIndex As Integer
+        Dim currentMonth As Integer = Month(Now)
+        Dim currentYear As Integer = Year(Now) - 2010
+        Dim setMonth As Integer = Month(setDate)
+        Dim setYear As Integer = Year(setDate) - 2010
+        Dim monthList As New List(Of Integer)
+        Dim yearList As New List(Of Integer)
+        Dim finalPrice As Integer
+
+        'Las tasas estan estructuradas en etapas:
+        'Etapa 0 - Hasta el año 2010, inclusive = t0
+        'Etapa 1 - Año 2011 = t1
+        'Etapa 2 - Año 2012 = t2
+        '...
+        'Etapa 13 - Año 2023 = t13
+        '
+        'La cantidad de etapas debe ser igual a currentYear
+        If tasa.Count < currentYear Then
+            MsgBox("Actualice el archivo de tasas de interés")
+            fMain.Close()
+            Return 0
+        End If
+        For i As Integer = 0 To currentYear
+            'Estas variables guardan la cantidad de meses y años a aplicar por cada etapa
+            'Esto es debido a que la etapa 0 es especial por aplicar a varios años
+            'Por ejemplo, proyectar un libro del 09-2005 al 07-2023 aplicaria la etapa 0 de la siguiente manera:
+            'Etapa 0 - meses 9 al 12 del año 2005 = 3 meses de interes a tasa t0
+            'Etapa 0 - años completos del 2006 al 2010 = 5 años de interes a tasa t0
+            'Etapa 1 - año 2011 a tasa t1
+            '...
+            'Etapa 13 - meses 1 al 7 del año 2023 = 6 meses de interes a tasa t13
+            monthList.Add(0)
+            yearList.Add(0)
+        Next
+        If setYear = currentYear Then
+            'Solo tenemos los meses transcurridos en el año actual, con tasa tx,
+            'guardamos esa cantidad en al array de meses correspondientes a la etapa x
+            monthList(currentYear) += currentMonth - setMonth
+            yearList(currentYear) = 0
+        Else
+            'En la etapa x guardamos los meses transcurridos de este año
+            monthList(currentYear) = currentMonth - 1
+            stageIndex = currentYear
+            If stageIndex < 0 Then stageIndex = 0   'Esto asegura que los años anteriores a 2010 no generen un indice negativo
+            monthList(stageIndex) = 13 - setMonth   'En el año dato solo aplican los meses entre mes dato y fin de año
+            For i As Integer = stageIndex + 1 To currentYear - 1
+                monthList(i) = 12   'Todos los años en el medio aplican los 12 meses completos
+            Next
+        End If
+        If setYear < 1 Then
+            'Si el año dato es 2010 o anterior, la cantidad de meses a aplicarle tasa t0 es
+            '12 por cada año completo entre la fecha dato y finales de 2010,
+            'y la cantidad especifica de meses entre la fecha dato y su fin de año
+            Dim fullYearsElapsed As Integer = -setYear
+            Dim monthsRemaining As Integer = 13 - setMonth
+            monthList(0) = 12 * fullYearsElapsed + monthsRemaining
+        End If
+
+        'Aplicamos interes compuesto por los meses totales transcurridos
+        finalPrice = value
+        For i As Integer = 0 To currentYear
+            yearList(i) = Math.Floor(monthList(i) / 12) 'Esto es para aplicar tasa t0 a los años enteros que corresponda
+            monthList(i) = monthList(i) Mod 12  'Solo es mayor a cero si no es un año completo
+            'Las tasas estan en valores porcentuales, convertimos a decimal
+            Dim rateYear As Single = 1 + tasa(i) / 100
+            Dim rateMonth As Single = 1 + tasa(i) / 1200
+            finalPrice *= rateYear * yearList(i)    'Aplicamos la tasa anual a los años completos
+            finalPrice *= rateMonth * monthList(i)  'Aplicamos la tasa mensual a los años 'incompletos'
+        Next
+        Return finalPrice
+    End Function
     Public Function Proyectar(mesDato As Integer, anoDato As Integer, valor As Single) As Single
         Dim a_index As Integer
         Dim mesActual As Integer = Month(Now)
@@ -225,10 +301,9 @@ Public Module Subrutinas
         'Reemplaza todos los valores de un libro; actualiza la fecha y lo marca como editado
         Dim mes As String = Month(Now).ToString
         Dim ano As String = (Year(Now) - 2000).ToString
-        If Not valores(3).StartsWith("*") Then valores(3) = "*" & valores(3)
         valores(5) = mes
         valores(6) = ano
-        libro.updateFromArray(valores)
+        libro.updateFromArray(valores, True)
     End Sub
     Public Sub BulkEdit(listaId As List(Of Integer), nuevoValor As String, categoria As Integer)
         For Each x In listaId
@@ -266,23 +341,39 @@ Public Module Subrutinas
         System.IO.File.WriteAllLines(archivoPrecios, textoCompleto, System.Text.Encoding.GetEncoding(1252))
         textoCompleto = Nothing
     End Sub
-    Public Function ExtraeEditoriales() As List(Of String)
-        Dim editoriales As New List(Of String)
-        Dim listLibros As New List(Of Libros)
-        listLibros = libro.Distinct.GroupBy(Function(x) x.editorial).Select(Function(d) d.First()).ToList()
-        For Each item In listLibros
-            editoriales.Add(item.editorial)
+    Friend Sub PopulateLists()
+        authorList = GetAuthors()
+        Dim publishers As List(Of String) = GetPublishers()
+        For Each publisher In publishers
+            publisherList.Add(publisher, GetLabels(publisher))
         Next
-        Return editoriales
+    End Sub
+    Public Function GetPublishers() As List(Of String)
+        Dim publisherList As New List(Of String)
+        Dim bookList As New List(Of Libros)
+        bookList = libro.Distinct.GroupBy(Function(x) x.editorial).Select(Function(d) d.First()).ToList()
+        For Each item In bookList
+            publisherList.Add(item.editorial)
+        Next
+        Return publisherList
     End Function
-    Public Function ExtraeAutores() As List(Of String)
-        Dim autores As New List(Of String)
+    Public Function GetLabels(publisher As String) As List(Of String)
+        Dim labelList As New List(Of String)
+        Dim bookList As New List(Of Libros)
+        bookList = libro.Distinct.GroupBy(Function(x) x.sello).Select(Function(d) d.First()).Where(Function(y) y.editorial = publisher).ToList
+        For Each item In bookList
+            labelList.Add(item.editorial)
+        Next
+        Return labelList
+    End Function
+    Public Function GetAuthors() As List(Of String)
+        Dim authorList As New List(Of String)
         Dim listLibros As New List(Of Libros)
         listLibros = libro.Distinct.GroupBy(Function(x) x.autor).Select(Function(d) d.First()).ToList()
         For Each item In listLibros
-            autores.Add(item.autor)
+            authorList.Add(item.autor)
         Next
-        Return autores
+        Return authorList
     End Function
     Public Function Redondea(valor As Decimal, minimo As Integer) As Integer
         Return ((minimo * Math.Ceiling(valor / minimo)).ToString)
@@ -507,4 +598,25 @@ Public Module Subrutinas
         If n > 255 Then Return 255
         Return n
     End Function
+
+    Public Function GetTextBoxes(TControl As Control) As List(Of TextBox)
+        Dim textBoxes = New List(Of TextBox)
+        For Each c As Control In TControl.Controls
+            If TypeOf c Is TextBox Then
+                textBoxes.Add(c)
+            End If
+        Next
+        Return textBoxes
+    End Function
+
+    'Public Function GetControls(TControl As Control, ) As List(Of TextBox)
+    '    Dim textBoxes = New List(Of TextBox)
+    '    For Each c As Control In TControl.Controls
+    '        If TypeOf c Is TextBox Then
+    '            textBoxes.Add(c)
+    '        End If
+    '    Next
+    '    Return textBoxes
+    'End Function
+
 End Module

@@ -52,52 +52,5 @@ Buscador
   Looks up a localized resource of type System.Drawing.Bitmap.
 </summary>
 </member>
-<member name="M:Buscador.FuncionesTexto.ExtraeNumeros(System.String)">
- <summary>
- Devuelve la subcadena numérica. De "a12bcd4" devuelve "124"
- </summary>
-</member>
-<member name="M:Buscador.FuncionesTexto.PortaPapeles(System.String,System.String,System.String,System.String,System.String)">
- <summary>
- Copia los datos al portapapeles para pegar en la planilla de ventas agregando el caracter "`" al ISBN
- </summary>
- <remarks></remarks>
-</member>
-<member name="M:Buscador.FuncionesTexto.QuitaAcentos(System.String)">
- <summary>
- Devuelve la subcadena alfanumérica estándar en mayúsculas. Por ejemplo, "áéíóú" devuelve "AEIOU"
- </summary>
- <param name="texto"></param>
- <returns></returns>
- <remarks></remarks>
-</member>
-<member name="M:Buscador.Subrutinas.ActualizaPrecios(System.String)">
- <summary>
- Actualiza los precios de una editorial dada. El archivo CSV debe estar preformateado
- a 9 columnas título-autor-isbn-editorial-pvp-mes-año-sello-tema
- </summary>
- <param name="filePath">La ruta al archivo CSV conteniendo los precios nuevos</param>
- <remarks></remarks>
-</member>
-<member name="M:Buscador.Subrutinas.ListaActualizada(System.Collections.Generic.List{Buscador.Libros},System.Collections.Generic.List{Buscador.Libros})">
- <summary>
- Devuelve una lista combinando libros viejos y nuevos.
- Compara el ISBN de cada libro viejo con toda la lista nueva.
- Si encuentra coincidencia, agrega a la lista final el libro de mayor PVP, y elimina
- el libro nuevo de la lista de nuevos.
- Si no encuentra coincidencia, agrega el libro viejo.
- Luego de iterar toda la lista de viejos, agrega los nuevos sin procesar.
- </summary>
- <param name="viejos"></param>
- <param name="nuevos"></param>
- <returns></returns>
-</member>
-<member name="M:Buscador.Subrutinas.LibrosPorEditorial(System.String)">
- <summary>
- Devuelve una sublista de la lista principal de precios
- conteniendo solo la editorial especificada
- </summary>
- <param name="editorial"></param>
-</member>
 </members>
 </doc>

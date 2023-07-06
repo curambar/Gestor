@@ -6,8 +6,8 @@
         End Select
     End Sub
     Private Sub formHistorial_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim posx As Integer = Buscador.fMain.Location.X + Buscador.fMain.Size.Width - 15
-        Dim posy As Integer = Buscador.fMain.Location.Y
+        Dim posx As Integer = Buscador.frmMain.Location.X + Buscador.frmMain.Size.Width - 15
+        Dim posy As Integer = Buscador.frmMain.Location.Y
         Dim eh As EntradaHistorial
         Dim linea As String
         Me.Location = New Point(posx, posy)
@@ -21,8 +21,8 @@
         Dim listBox As ListBox = TryCast(sender, ListBox)
         Dim indice As Integer = listBox.SelectedIndex
         Dim entrada As EntradaHistorial = Globales.historial(indice)
-        fMain.txtInput.Text = entrada.input
-        fMain.lvResultadosBusqueda.Items.Clear()
-        fMain.PresentaBusqueda(entrada.resultadosBusqueda)
+        frmMain.tbInput.Text = entrada.input
+        frmMain.lvResultadosBusqueda.Items.Clear()
+        frmMain.ShowResults(entrada.resultadosBusqueda)
     End Sub
 End Class

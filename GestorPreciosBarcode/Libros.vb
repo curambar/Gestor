@@ -1,49 +1,59 @@
-﻿Public Class Libros
+﻿Imports Buscador.Tools
+Public Class BookData
     Public id As Integer
-    Public titulo As String
-    Public autor As String
+    Public title As String
+    Public author As String
     Public isbn As String
-    Public editorial As String
-    Public pvp As Integer
-    Public mes As String
-    Public año As String
-    Public sello As String
-    Public tema As String
+    Public publisher As String
+    Public label As String
+    Public description As String
+    Public price As Integer
+    Public textDate As String
+    Public isCustom As Boolean
     Public array() As String
 
-    Sub New(ByVal libro() As String, index As Integer)
-        titulo = libro(0)
-        autor = libro(1)
-        isbn = FuncionesTexto.ExtraeNumeros(libro(2))
-        editorial = libro(3)
-        'pvp = CInt(libro(4))
-        'pvp = Subrutinas.Redondea(Globales.recargo * CInt(libro(4)), 100)
-        pvp = Subrutinas.Redondea(CInt(libro(4)), 100)
-        mes = libro(5)
-        año = libro(6)
-        sello = libro(7)
-        tema = libro(8)
-        libro(2) = "`" + isbn
-        array = libro
+    Sub New(ByVal bookArray() As String, index As Integer)
+        If True Then
+
+        End If
+        title = bookArray(0)
+        author = bookArray(1)
+        isbn = TextTools.NumericSubstring(bookArray(2))
+        'TODO:
+        'verificar isbn, convertir a isbn13
+        publisher = bookArray(3)
+        label = bookArray(4)
+        description = bookArray(5)
+        price = Tools.RoundUp(CInt(bookArray(6)), 100)
+        textDate = bookArray(7).Replace("*", "")
+        isCustom = (bookArray(8) = "1")
+        bookArray(2) = "*" + isbn
+        array = bookArray
         id = index
     End Sub
-    Function fecha() As String
-        Return (mes.PadLeft(2, "0") & "/" & año.PadLeft(2, "0"))
+
+    Function setDate() As Date
+        Dim tempDate As Date
+        tempDate = Date.ParseExact(textDate, "yyMMdd HH:mm", System.Globalization.CultureInfo.InvariantCulture)
+        Return tempDate
     End Function
-    Function linea() As String
+
+    Function line() As String
         Return String.Join(";", array)
     End Function
     Sub updateFromArray(aux() As String)
+        'TODO:
+        'Ver si se puede modificar el item directamente para descartar esta subrutina
         array = aux
-        titulo = aux(0)
-        autor = aux(1)
+        title = aux(0)
+        author = aux(1)
         isbn = aux(2)
-        editorial = aux(3)
-        pvp = CInt(aux(4))
-        mes = aux(5)
-        año = aux(6)
-        sello = aux(7)
-        tema = aux(8)
+        publisher = aux(3)
+        label = aux(4)
+        description = aux(5)
+        price = CInt(aux(6))
+        textDate = aux(7)
+        isCustom = aux(8)
     End Sub
 End Class
 
